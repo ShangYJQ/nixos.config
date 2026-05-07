@@ -31,10 +31,13 @@
         bat
         tree
         unzip
+        btop
 
         rustup
         tree-sitter
 
+        bun
+        nodejs
         clang
         clang-tools
         gnumake
@@ -46,7 +49,7 @@
       home.file.".config/nvim" = {
         source = builtins.fetchGit {
           url = "https://github.com/ShangYJQ/nvim.config.git";
-          rev = "db28eca379c3b9772b52b1b205aa984c42a5a2fb";
+          rev = "e76ee094631f25a53606e43e22cf75a91ee9a1ea";
         };
         recursive = true;
       };

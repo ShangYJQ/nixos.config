@@ -29,9 +29,14 @@ in
 
   nix.settings.experimental-features = [
     "nix-command"
+    "flakes"
   ];
 
-  networking.hostName = "nixos";
+  networking = {
+    # for nuxt dev server
+    firewall.allowedTCPPorts = [ 3000 ];
+    hostName = "nixos";
+  };
 
   services.openssh = {
     enable = true;
@@ -44,14 +49,7 @@ in
     };
   };
 
-  programs.fish = {
-    enable = true;
-    # interactiveShellInit = ''
-    #   ${builtins.readFile ./fish/config.fish}
-    #   ${builtins.readFile ./fish/fish_prompt.fish}
-    #   ${builtins.readFile ./fish/fish_frozen_theme.fish}
-    # '';
-  };
+  programs.fish.enable = true;
 
   users.users.root = {
     shell = pkgs.fish;

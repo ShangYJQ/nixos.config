@@ -9,10 +9,9 @@ if status is-interactive
 
     set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 
-
-
     fish_add_path $HOME/.cargo/bin
     fish_add_path $HOME/.local/bin
+	fish_add_path "/root/.bun/bin"
 
     # eza 替代 ls
     if type -q eza
@@ -43,6 +42,7 @@ if status is-interactive
     abbr -a ga 'git add .'
     abbr -a gr 'git restore .'
     abbr -a gs 'git status --short'
+	abbr -a rebuild 'nixos-rebuild switch'
 
     if type -q zoxide
         zoxide init fish | source
