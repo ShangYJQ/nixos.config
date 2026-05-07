@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
@@ -32,12 +33,15 @@
         tree
         unzip
         btop
+        zellij
 
         rustup
         tree-sitter
 
         bun
         nodejs
+        jdk17
+        androidsdk
         clang
         clang-tools
         gnumake
@@ -45,6 +49,10 @@
         pkg-config
         gdb
       ];
+
+      home.sessionVariables = {
+        JAVA_HOME = "${pkgs.jdk17.home}";
+      };
 
       home.file.".config/nvim" = {
         source = builtins.fetchGit {
@@ -62,6 +70,14 @@
           source /etc/nixos/fish/fish_prompt.fish
           source /etc/nixos/fish/fish_frozen_theme.fish
         '';
+      };
+
+      programs.zellij = {
+        enable = true;
+        settings = {
+          default_shell = "fish";
+          pane_frames = false;
+        };
       };
 
       programs.zoxide = {
