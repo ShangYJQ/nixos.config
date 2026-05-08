@@ -1,8 +1,9 @@
-{ ... }:
+{ unstable, ... }:
 
 {
   programs.fish = {
     enable = true;
+    package = unstable.fish;
 
     shellAbbrs = {
       qkgit = "git add .; and aicommits -y; and git push";
