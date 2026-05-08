@@ -3,7 +3,7 @@
   unstable,
   nvim-config,
   yazi-config,
-  codex-switch,
+  codexSwitch,
   ...
 }:
 
@@ -19,7 +19,7 @@
     unstable.yazi
     unstable.zellij
     unstable.lazygit
-    codex-switch.packages.${pkgs.stdenv.hostPlatform.system}.default
+    codexSwitch
 
     # CLI utilities
     eza

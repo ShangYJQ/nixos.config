@@ -46,6 +46,8 @@
           allowUnfree = true;
         };
       };
+
+      codexSwitch = codex-switch.packages.${system}.default;
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -64,7 +66,7 @@
                 unstable
                 nvim-config
                 yazi-config
-                codex-switch
+                codexSwitch
                 ;
             };
           }
