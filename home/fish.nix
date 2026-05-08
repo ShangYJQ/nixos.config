@@ -13,7 +13,7 @@
       gr = "git restore .";
       gs = "git status --short";
       cs = "codex-switch";
-      rebuild = "nixos-rebuild switch --flake /etc/nixos#nixos";
+      rb = "nixos-rebuild switch --flake /etc/nixos#nixos";
     };
 
     shellAliases = {
