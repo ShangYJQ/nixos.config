@@ -9,14 +9,17 @@
 {
   home.packages = with pkgs; [
 
-    nixd
-    nixfmt-rfc-style
+    # Nix tooling
+    unstable.nixd
+    unstable.nixfmt
 
+    # Terminal workspace
     unstable.neovim
     unstable.yazi
     unstable.zellij
     unstable.lazygit
 
+    # CLI utilities
     eza
     fastfetch
     fd
@@ -29,20 +32,28 @@
     unzip
     btop
 
+    # Language servers and formatters
+    lua-language-server
+    stylua
+    unstable.fish-lsp
+
+    # Language runtimes and toolchains
     rustup
     tree-sitter
-
-    bubblewrap
-
     unstable.bun
     nodejs
     jdk17
-    clang
-    clang-tools
+    unstable.clang
+    unstable.clang-tools
+
+    # Build and debug tools
     gnumake
     cmake
     pkg-config
     gdb
+
+    # Sandbox helpers
+    bubblewrap
   ];
 
   home.sessionPath = [
