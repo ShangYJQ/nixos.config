@@ -137,28 +137,9 @@ in
           session_serialization = false;
           # serialize_pane_viewport = false;
 
-          theme = "catppuccin-mocha";
+          theme = "catppuccin-macchiato";
         };
 
-        themes = {
-          catppuccin-mocha = ''
-            themes {
-              catppuccin-mocha {
-                fg "#cdd6f4"
-                bg "#1e1e2e"
-                black "#45475a"
-                red "#f38ba8"
-                green "#a6e3a1"
-                yellow "#f9e2af"
-                blue "#89b4fa"
-                magenta "#f5c2e7"
-                cyan "#94e2d5"
-                white "#bac2de"
-                orange "#fab387"
-              }
-            }
-          '';
-        };
       };
 
       programs.zoxide = {
