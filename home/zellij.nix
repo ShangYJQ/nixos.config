@@ -12,6 +12,11 @@
               bind "Ctrl Shift Left"  { GoToPreviousTab; }
               bind "Ctrl Shift Right" { GoToNextTab; }
           }
+
+          locked {
+              bind "Ctrl Shift Left"  { GoToPreviousTab; }
+              bind "Ctrl Shift Right" { GoToNextTab; }
+          }
       }
     '';
 
