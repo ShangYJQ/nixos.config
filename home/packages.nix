@@ -33,9 +33,14 @@
     btop
 
     # Language servers and formatters
-    lua-language-server
-    stylua
+    unstable.lua-language-server
+    unstable.stylua
     unstable.fish-lsp
+    unstable.tailwindcss-language-server
+    unstable.dockerfile-language-server
+    unstable.vscode-langservers-extracted
+    unstable.vtsls
+    unstable.vue-language-server
 
     # Language runtimes and toolchains
     rustup
