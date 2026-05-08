@@ -65,6 +65,13 @@
     ];
   };
   environment.systemPackages = with pkgs; [
+
+    # NOTE
+    # code-cli warpper for codex app to find codex
+    (writeShellScriptBin "codex" ''
+      exec "$HOME/.bun/bin/codex" "$@"
+    '')
+
     unstable.fish
     git
     curl
