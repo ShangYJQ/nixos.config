@@ -11,7 +11,7 @@
     };
 
     nvim-config = {
-      url = "github:ShangYJQ/nvim.config/e76ee094631f25a53606e43e22cf75a91ee9a1ea";
+      url = "github:ShangYJQ/nvim.config/fd3594d1cd30411876f71231fb675ad74ff9165b";
       flake = false;
     };
 
