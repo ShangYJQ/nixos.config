@@ -52,12 +52,13 @@ in
         nixfmt-rfc-style
 
         unstable.neovim
+        unstable.yazi
+
         eza
         fastfetch
         fd
         fzf
         zoxide
-        yazi
         ripgrep
         bat
         tree

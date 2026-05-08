@@ -1,14 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  unstable =
-    import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz")
-      {
-        system = pkgs.system;
-      };
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
-in
-
 {
 
   nixpkgs.config = {
@@ -16,11 +7,7 @@ in
     android_sdk.accept_license = true;
   };
 
-  home-manager.extraSpecialArgs = {
-    inherit unstable;
-  };
   imports = [
-    (import "${home-manager}/nixos")
     ./home.nix
   ];
 
