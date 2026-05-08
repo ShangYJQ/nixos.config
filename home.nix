@@ -29,6 +29,7 @@
         unstable.neovim
         unstable.yazi
         unstable.zellij
+        unstable.lazygit
 
         eza
         fastfetch
