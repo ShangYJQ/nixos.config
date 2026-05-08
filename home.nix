@@ -1,37 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  androidComposition = pkgs.androidenv.composeAndroidPackages {
-    cmdLineToolsVersion = "11.0";
-    platformToolsVersion = "36.0.0";
-
-    buildToolsVersions = [
-      "35.0.0"
-      "36.0.0"
-    ];
-
-    platformVersions = [
-      "35"
-      "36"
-    ];
-
-    includeEmulator = false;
-    includeSystemImages = false;
-    includeSources = false;
-
-    # Tauri Android 需要 NDK
-    includeNDK = true;
-    ndkVersions = [ "26.3.11579264" ];
-
-    includeCmake = true;
-    cmakeVersions = [ "3.22.1" ];
-  };
-
-  androidSdk = androidComposition.androidsdk;
-in
-
 {
-
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
@@ -46,7 +15,7 @@ in
       ...
     }:
     {
-      home.stateVersion = "25.05";
+      home.stateVersion = "25.11";
 
       home.packages = with pkgs; [
 
@@ -76,7 +45,6 @@ in
         bun
         nodejs
         jdk17
-        androidSdk
         clang
         clang-tools
         gnumake
@@ -93,12 +61,6 @@ in
 
       home.sessionVariables = {
         JAVA_HOME = "${pkgs.jdk17.home}";
-
-        ANDROID_HOME = "${androidSdk}/libexec/android-sdk";
-        ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
-
-        ANDROID_NDK_HOME = "${androidSdk}/libexec/android-sdk/ndk/26.3.11579264";
-        NDK_HOME = "${androidSdk}/libexec/android-sdk/ndk/26.3.11579264";
 
         NODE_OPTIONS = "--max-old-space-size=8192";
       };

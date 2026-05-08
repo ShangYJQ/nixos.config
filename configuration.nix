@@ -4,14 +4,13 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    android_sdk.accept_license = true;
   };
 
   imports = [
     ./home.nix
   ];
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 
   systemd.suppressedSystemUnits = [
     "sys-kernel-debug.mount"
