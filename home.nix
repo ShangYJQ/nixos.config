@@ -37,6 +37,7 @@
         ripgrep
         bat
         tree
+        zip
         unzip
         btop
         zellij
