@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "codex-switch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778265257,
+        "narHash": "sha256-XkqXPJfLmEr9qahyhMYQX+urAaIFhLk90OUzoQvcAs0=",
+        "owner": "ShangYJQ",
+        "repo": "codex-switch",
+        "rev": "6c05901eae340362e470812f1d89e46495f57967",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ShangYJQ",
+        "repo": "codex-switch",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -72,6 +92,7 @@
     },
     "root": {
       "inputs": {
+        "codex-switch": "codex-switch",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

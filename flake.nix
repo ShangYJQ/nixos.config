@@ -19,6 +19,11 @@
       url = "github:ShangYJQ/yazi.config/e38f10569080d5cc9e52b65ec737071a3215d61a";
       flake = false;
     };
+
+    codex-switch = {
+      url = "github:ShangYJQ/codex-switch";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -28,6 +33,7 @@
       home-manager,
       nvim-config,
       yazi-config,
+      codex-switch,
       ...
     }:
 
@@ -54,7 +60,12 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {
-              inherit unstable nvim-config yazi-config;
+              inherit
+                unstable
+                nvim-config
+                yazi-config
+                codex-switch
+                ;
             };
           }
         ];
