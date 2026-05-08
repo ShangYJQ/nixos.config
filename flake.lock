@@ -7,32 +7,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1763992789,
-        "narHash": "sha256-WHkdBlw6oyxXIra/vQPYLtqY+3G8dUVZM8bEXk0t8x4=",
+        "lastModified": 1777851538,
+        "narHash": "sha256-Gp8qwTEYNoy2yvmErVGlvLOQvrtEECCAKbonW7VJef8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "44831a7eaba4360fb81f2acc5ea6de5fde90aaa3",
+        "rev": "cc09c0f9b7eaa95c2d9827338a5eb03d32505ca5",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1767313136,
-        "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
+        "lastModified": 1778003029,
+        "narHash": "sha256-q/nkKLDtHIyLjZpKhWk3cSK5IYsFqtMd6UtXF3ddjgA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ac62194c3917d5f474c1a844b6fd6da2db95077d",
+        "rev": "0c88e1f2bdb93d5999019e99cb0e61e1fe2af4c5",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -53,11 +53,47 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778179709,
+        "narHash": "sha256-+md7aE66j7KqEnaqmUGrguy98bQQYJFy4t9Syp6Qtd0=",
+        "owner": "ShangYJQ",
+        "repo": "nvim.config",
+        "rev": "e76ee094631f25a53606e43e22cf75a91ee9a1ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ShangYJQ",
+        "repo": "nvim.config",
+        "rev": "e76ee094631f25a53606e43e22cf75a91ee9a1ea",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nvim-config": "nvim-config",
+        "yazi-config": "yazi-config"
+      }
+    },
+    "yazi-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778036826,
+        "narHash": "sha256-INpo+yTFsF6yprAp4ALDwqw8sFrPwaW+MJ3RPcomoJs=",
+        "owner": "ShangYJQ",
+        "repo": "yazi.config",
+        "rev": "e38f10569080d5cc9e52b65ec737071a3215d61a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ShangYJQ",
+        "repo": "yazi.config",
+        "rev": "e38f10569080d5cc9e52b65ec737071a3215d61a",
+        "type": "github"
       }
     }
   },

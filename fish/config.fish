@@ -38,7 +38,7 @@ if status is-interactive
     abbr -a ga 'git add .'
     abbr -a gr 'git restore .'
     abbr -a gs 'git status --short'
-	abbr -a rebuild 'nixos-rebuild switch'
+    abbr -a rebuild 'nixos-rebuild switch --flake /etc/nixos#nixos'
 
     if type -q zoxide
         zoxide init fish | source
@@ -59,4 +59,3 @@ if status is-interactive
     end
 
 end
-

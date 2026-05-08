@@ -41,6 +41,8 @@ in
       config,
       pkgs,
       unstable,
+      nvim-config,
+      yazi-config,
       ...
     }:
     {
@@ -102,18 +104,12 @@ in
       };
 
       home.file.".config/nvim" = {
-        source = builtins.fetchGit {
-          url = "https://github.com/ShangYJQ/nvim.config.git";
-          rev = "e76ee094631f25a53606e43e22cf75a91ee9a1ea";
-        };
+        source = nvim-config;
         recursive = true;
       };
 
       home.file.".config/yazi" = {
-        source = builtins.fetchGit {
-          url = "https://github.com/ShangYJQ/yazi.config.git";
-          rev = "e38f10569080d5cc9e52b65ec737071a3215d61a";
-        };
+        source = yazi-config;
         recursive = true;
       };
 
@@ -157,8 +153,10 @@ in
 
       programs.git = {
         enable = true;
-        userName = "ShangYJQ";
-        userEmail = "421207553@qq.com";
+        settings = {
+          user.name = "ShangYJQ";
+          user.email = "421207553@qq.com";
+        };
       };
     };
 }
