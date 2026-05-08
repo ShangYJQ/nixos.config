@@ -91,7 +91,7 @@
       programs.zellij = {
         enable = true;
         package = unstable.zellij;
-        enableFishIntegration = true;
+        # enableFishIntegration = true;
         settings = {
           default_shell = "fish";
           pane_frames = false;
