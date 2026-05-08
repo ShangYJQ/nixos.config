@@ -33,6 +33,7 @@
     zip
     unzip
     btop
+    tokei
 
     # Language servers and formatters
     unstable.lua-language-server
