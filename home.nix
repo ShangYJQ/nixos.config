@@ -15,6 +15,7 @@
         ./home/git.nix
         ./home/zellij.nix
         ./home/fish.nix
+        ./home/fastfetch.nix
       ];
 
       home.stateVersion = "25.11";
