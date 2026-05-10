@@ -21,7 +21,8 @@ in
       # Nix tooling
       unstable.nixd
       unstable.nixfmt
-      nix-init
+      unstable.nix-init
+      unstable.nix-tree
 
       # Terminal workspace
       unstable.neovim
