@@ -23,8 +23,7 @@
     { ... }:
     {
       imports = [
-        ./home/fish.nix
-        ./home/fastfetch.nix
+        ./home/git.nix
       ];
 
       home.stateVersion = "25.11";

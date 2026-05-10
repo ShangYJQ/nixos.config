@@ -61,7 +61,7 @@
 
     nh = {
       enable = true;
-      flake = "/etc/nixos";
+      flake = "/home/yjq/nixos";
 
       clean = {
         enable = true;
@@ -101,6 +101,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    vim
     curl
     wget
     htop
