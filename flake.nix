@@ -25,6 +25,11 @@
       url = "github:ShangYJQ/codex-switch";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    aicommits-src = {
+      url = "github:Nutlope/aicommits";
+      flake = false;
+    };
   };
 
   outputs =
@@ -36,6 +41,7 @@
       yazi-config,
       codex-cli-nix,
       codex-switch,
+      aicommits-src,
       ...
     }:
 
@@ -71,6 +77,7 @@
                 yazi-config
                 codexCliNix
                 codexSwitch
+                aicommits-src
                 ;
             };
           }

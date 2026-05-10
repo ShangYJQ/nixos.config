@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "aicommits-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778243759,
+        "narHash": "sha256-r03218GwMxIufVzPYxrOQBJYakrF+noUPGrLJqq6pGg=",
+        "owner": "Nutlope",
+        "repo": "aicommits",
+        "rev": "4af69b2b876de190d59e2aa4ef10db366db0cc8e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nutlope",
+        "repo": "aicommits",
+        "type": "github"
+      }
+    },
     "codex-cli-nix": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -144,6 +160,7 @@
     },
     "root": {
       "inputs": {
+        "aicommits-src": "aicommits-src",
         "codex-cli-nix": "codex-cli-nix",
         "codex-switch": "codex-switch",
         "home-manager": "home-manager",
