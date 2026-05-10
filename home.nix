@@ -1,11 +1,11 @@
-{ ... }:
+{ userName, ... }:
 
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
 
-  home-manager.users.yjq =
+  home-manager.users.${userName} =
     { ... }:
     {
       imports = [

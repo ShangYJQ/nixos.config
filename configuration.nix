@@ -2,6 +2,9 @@
   config,
   pkgs,
   unstable,
+  userName,
+  hostName,
+  flakePath,
   ...
 }:
 
@@ -36,7 +39,7 @@
   networking = {
     # for nuxt dev server
     firewall.allowedTCPPorts = [ 3000 ];
-    hostName = "nixos";
+    inherit hostName;
   };
 
   services.openssh = {
@@ -48,7 +51,7 @@
       PermitRootLogin = "yes";
       AllowUsers = [
         "root"
-        "yjq"
+        userName
       ];
     };
   };
@@ -61,7 +64,7 @@
 
     nh = {
       enable = true;
-      flake = "/home/yjq/nixos";
+      flake = flakePath;
 
       clean = {
         enable = true;
@@ -89,7 +92,7 @@
     ];
   };
 
-  users.users.yjq = {
+  users.users.${userName} = {
     shell = unstable.fish;
     isNormalUser = true;
     initialPassword = "985211";
