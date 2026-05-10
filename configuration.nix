@@ -24,11 +24,6 @@
   boot.isContainer = true;
 
   nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
-    };
     settings = {
       auto-optimise-store = true;
       experimental-features = [
@@ -51,7 +46,10 @@
       PasswordAuthentication = true;
       PubkeyAuthentication = true;
       PermitRootLogin = "yes";
-      AllowUsers = [ "root" ];
+      AllowUsers = [
+        "root"
+        "yjq"
+      ];
     };
   };
 
@@ -81,6 +79,8 @@
     };
   };
 
+  security.sudo.enable = true;
+
   users.users.root = {
     shell = unstable.fish;
     initialPassword = "985211";
@@ -88,6 +88,17 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDg7siDZ3Jh6hARmkF/EvbqIW2xDMrLLVU8PZsH5/zYYrTrlWrqWOqM+55A5CTGfE+hIiVokhaRaFusoHuWGTXGoH6+P7va8BqvV/Un/xwfVgphcmtpx4CRYvGoZy7tLh27bwMFa4LAbG4Ba9D/PJy+ddb9qnWiyiQjBAktTTY6VWCisFOZnFvCZRXaqqadszPHyjY3rrRHVbxJBhLhoTb6hv8so51vUjCmUfC64OkC8bLRKYXP1WA4FEZ4tRK1ot03Om0RsPfTgIVPS7dtxwuDawerf3m8tmusMI4PtxCPqDq7m9+cTelx5sTHryuNobNjNB7JNmmrNZouJ9mV+SHGw+lJMWnrOTGOsR1jn/L/NnifZpGiVuhRum9swYZVk99xjJ3cxm5ierYB9e8Yqgf/+1mf0QWfYYmZAeU1aT1HFdR7ttQr9BjFdturf5QlYsQ77wKG3IoB1uME7BSdTIDzOM1LQFl5RQZnn8HVA2ZmujR12BE7rlCFghHFOgxmn2s= 421207553@qq.com"
     ];
   };
+
+  users.users.yjq = {
+    shell = unstable.fish;
+    isNormalUser = true;
+    initialPassword = "985211";
+    extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDg7siDZ3Jh6hARmkF/EvbqIW2xDMrLLVU8PZsH5/zYYrTrlWrqWOqM+55A5CTGfE+hIiVokhaRaFusoHuWGTXGoH6+P7va8BqvV/Un/xwfVgphcmtpx4CRYvGoZy7tLh27bwMFa4LAbG4Ba9D/PJy+ddb9qnWiyiQjBAktTTY6VWCisFOZnFvCZRXaqqadszPHyjY3rrRHVbxJBhLhoTb6hv8so51vUjCmUfC64OkC8bLRKYXP1WA4FEZ4tRK1ot03Om0RsPfTgIVPS7dtxwuDawerf3m8tmusMI4PtxCPqDq7m9+cTelx5sTHryuNobNjNB7JNmmrNZouJ9mV+SHGw+lJMWnrOTGOsR1jn/L/NnifZpGiVuhRum9swYZVk99xjJ3cxm5ierYB9e8Yqgf/+1mf0QWfYYmZAeU1aT1HFdR7ttQr9BjFdturf5QlYsQ77wKG3IoB1uME7BSdTIDzOM1LQFl5RQZnn8HVA2ZmujR12BE7rlCFghHFOgxmn2s= 421207553@qq.com"
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     git
     curl
