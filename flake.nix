@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    codex-cli-nix.url = "github:sadjow/codex-cli-nix";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -33,6 +34,7 @@
       home-manager,
       nvim-config,
       yazi-config,
+      codex-cli-nix,
       codex-switch,
       ...
     }:
@@ -48,6 +50,7 @@
       };
 
       codexSwitch = codex-switch.packages.${system}.default;
+      codexCliNix = codex-cli-nix.packages.${system}.default;
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -66,6 +69,7 @@
                 unstable
                 nvim-config
                 yazi-config
+                codexCliNix
                 codexSwitch
                 ;
             };

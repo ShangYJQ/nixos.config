@@ -3,6 +3,7 @@
   unstable,
   nvim-config,
   yazi-config,
+  codexCliNix,
   codexSwitch,
   ...
 }:
@@ -19,6 +20,7 @@
     unstable.yazi
     unstable.zellij
     unstable.lazygit
+    codexCliNix
     codexSwitch
 
     # CLI utilities
