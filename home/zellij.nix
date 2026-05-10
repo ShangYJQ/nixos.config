@@ -4,8 +4,8 @@
   programs.zellij = {
     enable = true;
     package = unstable.zellij;
-    enableFishIntegration = true;
-    exitShellOnExit = true;
+    # enableFishIntegration = true;
+    # exitShellOnExit = true;
 
     extraConfig = ''
       keybinds {
