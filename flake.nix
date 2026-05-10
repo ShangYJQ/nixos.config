@@ -12,12 +12,12 @@
     };
 
     nvim-config = {
-      url = "github:ShangYJQ/nvim.config/cdc43cd379db3be4b068e655eef925cd1a37b67c";
+      url = "github:ShangYJQ/nvim.config";
       flake = false;
     };
 
     yazi-config = {
-      url = "github:ShangYJQ/yazi.config/e38f10569080d5cc9e52b65ec737071a3215d61a";
+      url = "github:ShangYJQ/yazi.config";
       flake = false;
     };
 

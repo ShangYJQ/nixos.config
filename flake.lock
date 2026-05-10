@@ -139,7 +139,6 @@
       "original": {
         "owner": "ShangYJQ",
         "repo": "nvim.config",
-        "rev": "cdc43cd379db3be4b068e655eef925cd1a37b67c",
         "type": "github"
       }
     },
@@ -182,7 +181,6 @@
       "original": {
         "owner": "ShangYJQ",
         "repo": "yazi.config",
-        "rev": "e38f10569080d5cc9e52b65ec737071a3215d61a",
         "type": "github"
       }
     }
