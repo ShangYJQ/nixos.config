@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration in pve lxc";
+  description = "NixOS configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -49,51 +49,78 @@
     }:
 
     let
-      system = "x86_64-linux";
       userName = "yjq";
-      hostName = "nixos";
       flakePath = "/home/${userName}/nixos";
 
-      unstable = import nixpkgs-unstable {
-        inherit system;
-        config = {
-          allowUnfree = true;
+      mkHost =
+        {
+          hostName,
+          system,
+          modules,
+        }:
+        let
+          unstable = import nixpkgs-unstable {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
+
+          codexSwitch = codex-switch.packages.${system}.default;
+          codexCliNix = codex-cli-nix.packages.${system}.default;
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          specialArgs = {
+            inherit
+              unstable
+              userName
+              hostName
+              flakePath
+              ;
+          };
+
+          modules = modules ++ [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                inherit
+                  unstable
+                  nvim-config
+                  yazi-config
+                  codexCliNix
+                  codexSwitch
+                  aicommits-src
+                  userName
+                  ;
+              };
+            }
+          ];
         };
-      };
 
-      codexSwitch = codex-switch.packages.${system}.default;
-      codexCliNix = codex-cli-nix.packages.${system}.default;
-    in
-    {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit
-            unstable
-            userName
-            hostName
-            flakePath
-            ;
-        };
-
+      nixosLxc = mkHost {
+        hostName = "nixos";
+        system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {
-              inherit
-                unstable
-                nvim-config
-                yazi-config
-                codexCliNix
-                codexSwitch
-                aicommits-src
-                userName
-                ;
-            };
-          }
+          ./hosts/nixos-lxc.nix
         ];
+      };
+
+      nixosUtm = mkHost {
+        hostName = "nixos";
+        system = "aarch64-linux";
+        modules = [
+          ./configuration.nix
+          ./hosts/nixos-utm.nix
+        ];
+      };
+    in
+    {
+      nixosConfigurations = {
+        nixos-lxc = nixosLxc;
+        nixos-utm = nixosUtm;
       };
     };
 }

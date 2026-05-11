@@ -20,12 +20,6 @@
 
   system.stateVersion = "25.11";
 
-  systemd.suppressedSystemUnits = [
-    "sys-kernel-debug.mount"
-  ];
-
-  boot.isContainer = true;
-
   nix = {
     settings = {
       auto-optimise-store = true;
