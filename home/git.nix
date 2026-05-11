@@ -10,6 +10,8 @@
       };
       init.defaultBranch = "main";
       core.editor = "nvim";
+
+      credential.helper = "store";
     };
   };
 }

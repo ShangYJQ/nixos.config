@@ -38,7 +38,10 @@
 
   networking = {
     # for nuxt dev server
-    firewall.allowedTCPPorts = [ 3000 ];
+    firewall.allowedTCPPorts = [
+      3000
+      4000
+    ];
     inherit hostName;
   };
 
