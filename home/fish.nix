@@ -42,8 +42,8 @@
         set -gx TERM xterm-256color
       end
 
-      source ${../fish/prompt.fish}
-      source ${../fish/theme.fish}
+      source ${./fish/prompt.fish}
+      source ${./fish/theme.fish}
     '';
   };
 }
