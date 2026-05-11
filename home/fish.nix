@@ -15,6 +15,7 @@
       gs = "git status --short";
       cs = "codex-switch";
       rb = "nh os switch";
+      dsinit = ''nix flake new -t "github:numtide/devshell"'';
     };
 
     shellAliases = {
