@@ -55,6 +55,8 @@ in
       unstable.vscode-langservers-extracted
       unstable.vtsls
       unstable.vue-language-server
+      unstable.oxfmt
+      unstable.taplo
 
       # Language runtimes and toolchains
       rustup
