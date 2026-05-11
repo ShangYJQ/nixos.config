@@ -62,7 +62,6 @@ in
       tree-sitter
       unstable.bun
       nodejs
-      jdk17
       unstable.clang
       unstable.clang-tools
 
@@ -82,8 +81,6 @@ in
       "$HOME/.bun/bin"
     ];
     sessionVariables = {
-      JAVA_HOME = "${pkgs.jdk17.home}";
-
       NODE_OPTIONS = "--max-old-space-size=8192";
 
       EDITOR = "nvim";
