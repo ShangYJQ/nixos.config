@@ -8,7 +8,6 @@
       display.separator = " ";
 
       modules = [
-        "break"
         {
           format = "{user-name}@{host-name}";
           key = "╭─";
