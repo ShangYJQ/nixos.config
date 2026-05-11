@@ -54,6 +54,7 @@
 
       mkHost =
         {
+          nixosConfigName,
           hostName,
           system,
           modules,
@@ -76,6 +77,7 @@
             inherit
               unstable
               userName
+              nixosConfigName
               hostName
               flakePath
               ;
@@ -93,6 +95,7 @@
                   codexSwitch
                   aicommits-src
                   userName
+                  nixosConfigName
                   ;
               };
             }
@@ -100,6 +103,7 @@
         };
 
       nixosLxc = mkHost {
+        nixosConfigName = "nixos-lxc";
         hostName = "nixos";
         system = "x86_64-linux";
         modules = [
@@ -109,6 +113,7 @@
       };
 
       nixosUtm = mkHost {
+        nixosConfigName = "nixos-utm";
         hostName = "nixos";
         system = "aarch64-linux";
         modules = [

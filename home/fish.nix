@@ -1,4 +1,4 @@
-{ unstable, ... }:
+{ unstable, nixosConfigName, ... }:
 
 {
   programs.fish = {
@@ -14,7 +14,7 @@
       gr = "git restore .";
       gs = "git status --short";
       cs = "codex-switch";
-      rb = "nh os switch";
+      rb = "nh os switch .#${nixosConfigName}";
       dsinit = ''nix flake new -t "github:numtide/devshell"'';
     };
 
