@@ -26,7 +26,6 @@ in
 
       # Terminal workspace
       unstable.neovim
-      unstable.yazi
       unstable.zellij
       unstable.lazygit
       codexCliNix
@@ -115,7 +114,18 @@ in
       enableFishIntegration = true;
     };
 
-    eza.enable = true;
-    bat.enable = true;
+    yazi = {
+      enable = true;
+      package = unstable.yazi.override {
+        _7zz = unstable._7zz-rar;
+      };
+      extraPackages = with pkgs; [
+        file
+        resvg
+        jq
+        unstable.imagemagick
+      ];
+    };
+
   };
 }
