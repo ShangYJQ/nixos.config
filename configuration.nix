@@ -26,12 +26,10 @@
 
       extra-substituters = [
         "https://cache.garnix.io"
-        "https://nixpkgs-wayland.cachix.org"
       ];
 
       extra-trusted-public-keys = [
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
 
       experimental-features = [
@@ -110,7 +108,6 @@
     unstable.git
     vim
     curl
-    unstable.drm_info
     wget
     unstable.htop
     ncurses

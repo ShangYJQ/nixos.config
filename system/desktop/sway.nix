@@ -11,6 +11,16 @@ let
   swayCommand = lib.getExe config.programs.sway.package;
 in
 {
+  nix.settings = {
+    extra-substituters = [
+      "https://nixpkgs-wayland.cachix.org"
+    ];
+
+    extra-trusted-public-keys = [
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+    ];
+  };
+
   hardware = {
     bluetooth = {
       enable = true;
@@ -129,6 +139,10 @@ in
   };
 
   users.users.${userName}.extraGroups = [ "video" ];
+
+  environment.systemPackages = [
+    unstable.drm_info
+  ];
 
   fonts = {
     packages = with pkgs; [

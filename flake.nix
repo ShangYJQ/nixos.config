@@ -83,7 +83,7 @@
         let
           unstable = import nixpkgs-unstable {
             inherit system;
-            overlays = [
+            overlays = nixpkgs.lib.optionals (nixosConfigName == "nixos-pc") [
               nixpkgs-wayland.overlays.default
             ];
             config = {
