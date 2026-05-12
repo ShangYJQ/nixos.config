@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     codex-cli-nix = {
       url = "github:sadjow/codex-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -52,6 +57,7 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-wayland,
       home-manager,
       walker,
       daeuniverse,
@@ -77,6 +83,9 @@
         let
           unstable = import nixpkgs-unstable {
             inherit system;
+            overlays = [
+              nixpkgs-wayland.overlays.default
+            ];
             config = {
               allowUnfree = true;
             };

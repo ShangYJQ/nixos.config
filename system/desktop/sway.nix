@@ -25,6 +25,7 @@ in
 
     sway = {
       enable = true;
+      package = unstable.sway;
       extraOptions = [ "--unsupported-gpu" ];
       extraSessionCommands = ''
         export XDG_SESSION_TYPE=wayland
@@ -111,7 +112,9 @@ in
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
+    extraPortals = [
+      unstable.xdg-desktop-portal-wlr
+    ];
     config = {
       common.default = [
         "wlr"

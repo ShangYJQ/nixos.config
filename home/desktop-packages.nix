@@ -12,17 +12,17 @@
     unstable.bluetui
     brightnessctl
     unstable.cava
-    cliphist
+    unstable.cliphist
     unstable.gdu
-    hypridle
+    unstable.hypridle
     unstable.hyprpicker
     unstable.libnotify
     pamixer
     unstable.pavucontrol
     playerctl
     unstable.s-tui
-    swappy
-    wl-clipboard
+    unstable.swappy
+    unstable.wl-clipboard
     xdg-utils
   ];
 

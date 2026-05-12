@@ -8,6 +8,7 @@
 {
   services.hypridle = {
     enable = true;
+    package = unstable.hypridle;
     systemdTarget = "sway-session.target";
     settings = {
       general = {
@@ -23,8 +24,8 @@
         }
         {
           timeout = 1200;
-          on-timeout = "${lib.getExe' pkgs.sway "swaymsg"} \"output * dpms off\"";
-          on-resume = "${lib.getExe' pkgs.sway "swaymsg"} \"output * dpms on\"";
+          on-timeout = "${lib.getExe' unstable.sway "swaymsg"} \"output * dpms off\"";
+          on-resume = "${lib.getExe' unstable.sway "swaymsg"} \"output * dpms on\"";
         }
       ];
     };

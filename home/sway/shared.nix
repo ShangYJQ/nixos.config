@@ -20,25 +20,25 @@ rec {
     set -eu
 
     mkdir -p "${screenshots}"
-    ${lib.getExe pkgs.grim} - \
+    ${lib.getExe unstable.grim} - \
       | tee "${screenshots}/$(${pkgs.coreutils}/bin/date +%Y-%m-%d_%H-%M-%S).png" \
-      | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+      | ${lib.getExe' unstable.wl-clipboard "wl-copy"}
   '';
 
   screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
     set -eu
 
-    region="$(${lib.getExe pkgs.slurp})"
+    region="$(${lib.getExe unstable.slurp})"
     [ -n "$region" ] || exit 0
-    ${lib.getExe pkgs.grim} -g "$region" - \
-      | ${lib.getExe pkgs.swappy} -f - -o - \
-      | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+    ${lib.getExe unstable.grim} -g "$region" - \
+      | ${lib.getExe unstable.swappy} -f - -o - \
+      | ${lib.getExe' unstable.wl-clipboard "wl-copy"}
   '';
 
   pickColor = pkgs.writeShellScript "pick-color" ''
     set -eu
 
-    ${lib.getExe unstable.hyprpicker} | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+    ${lib.getExe unstable.hyprpicker} | ${lib.getExe' unstable.wl-clipboard "wl-copy"}
   '';
 
   wallpaperScript = pkgs.writeShellScript "sway-wallpaper" ''
@@ -108,7 +108,7 @@ rec {
       echo 0 > "$index_file"
     fi
 
-    ${lib.getExe' pkgs.sway "swaymsg"} output "*" bg "$img" fill
+    ${lib.getExe' unstable.sway "swaymsg"} output "*" bg "$img" fill
   '';
 
   cavaScript = pkgs.writeShellScript "waybar-cava" ''

@@ -1,8 +1,9 @@
-{ ... }:
+{ unstable, ... }:
 
 {
   programs.swappy = {
     enable = true;
+    package = unstable.swappy;
     settings.Default = {
       save_dir = "$HOME/Pictures/Screenshots";
       save_filename_format = "swappy-%Y%m%d-%H%M%S.png";
