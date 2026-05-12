@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     # Desktop applications
     ghostty
-    google-chrome
     nautilus
 
     networkmanager # provides nmtui
@@ -27,4 +26,14 @@
     wlsunset
     xdg-utils
   ];
+
+  programs.google-chrome = {
+    enable = true;
+    commandLineArgs = [
+      "--enable-features=UseOzonePlatform"
+      "--ozone-platform=wayland"
+      "--enable-wayland-ime"
+      "--wayland-text-input-version=3"
+    ];
+  };
 }

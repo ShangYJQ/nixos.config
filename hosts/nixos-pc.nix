@@ -9,7 +9,7 @@
 
   imports = [
     ../hardware-configuration.nix
-    ../modules/sway.nix
+    ../system/desktop/sway.nix
   ];
 
   boot = {

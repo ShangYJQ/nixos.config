@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   unstable,
@@ -6,6 +7,9 @@
   ...
 }:
 
+let
+  swayCommand = lib.getExe config.programs.sway.package;
+in
 {
   hardware = {
     bluetooth = {
@@ -17,13 +21,14 @@
   };
 
   programs = {
-    light.enable = true;
     dconf.enable = true;
 
     sway = {
       enable = true;
       extraOptions = [ "--unsupported-gpu" ];
       extraSessionCommands = ''
+        export XDG_SESSION_TYPE=wayland
+        export XDG_SESSION_DESKTOP=sway
         export WLR_NO_HARDWARE_CURSORS=1
         export SDL_VIDEODRIVER=wayland
         export QT_QPA_PLATFORM="wayland;xcb"
@@ -31,6 +36,19 @@
         export _JAVA_AWT_WM_NONREPARENTING=1
         export MOZ_ENABLE_WAYLAND=1
         export NIXOS_OZONE_WL=1
+        export ELECTRON_OZONE_PLATFORM_HINT=auto
+
+        # Prefer the AMD iGPU for wlroots, while still exposing the NVIDIA dGPU outputs.
+        sway_drm_devices=""
+        for sway_drm_device in /dev/dri/by-path/pci-0000:06:00.0-card /dev/dri/by-path/pci-0000:01:00.0-card; do
+          if [ -e "$sway_drm_device" ]; then
+            sway_drm_device="$(${pkgs.coreutils}/bin/realpath "$sway_drm_device")"
+            sway_drm_devices="$sway_drm_devices''${sway_drm_devices:+:}$sway_drm_device"
+          fi
+        done
+        if [ -n "$sway_drm_devices" ]; then
+          export WLR_DRM_DEVICES="$sway_drm_devices"
+        fi
       '';
       wrapperFeatures.gtk = true;
       extraPackages = with pkgs; [
@@ -45,7 +63,7 @@
   };
 
   services = {
-    xserver.desktopManager.runXdgAutostartIfNone = true;
+    xserver.desktopManager.runXdgAutostartIfNone = false;
 
     gnome.gnome-keyring.enable = true;
 
@@ -67,20 +85,6 @@
     upower.enable = true;
     udisks2.enable = true;
     gvfs.enable = true;
-  };
-
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5 = {
-      waylandFrontend = true;
-      addons = with pkgs; [
-        qt6Packages.fcitx5-chinese-addons
-        qt6Packages.fcitx5-configtool
-        fcitx5-gtk
-        fcitx5-rime
-      ];
-    };
   };
 
   security = {
@@ -105,11 +109,11 @@
     };
   };
 
-  environment.loginShellInit = ''
-    if [ "$USER" = "${userName}" ] && [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+  programs.fish.loginShellInit = ''
+    if test "$USER" = "${userName}"; and test (tty) = /dev/tty1; and not set -q WAYLAND_DISPLAY
       mkdir -p "$HOME/.local/state"
-      exec sway > "$HOME/.local/state/sway.log" 2>&1
-    fi
+      exec ${swayCommand} > "$HOME/.local/state/sway.log" 2>&1
+    end
   '';
 
   xdg.portal = {

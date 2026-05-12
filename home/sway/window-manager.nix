@@ -25,12 +25,39 @@ let
     togglePowerProfile
     wallpaperScript
     ;
+
+  walkerCommand = lib.getExe config.programs.walker.package;
+  walkerLaunch = pkgs.writeShellScript "walker-launch" ''
+    ${lib.getExe' pkgs.systemd "systemctl"} --user start elephant.service walker.service >/dev/null 2>&1 || true
+    exec ${walkerCommand} "$@"
+  '';
+
+  toggleFcitx5 = pkgs.writeShellScript "toggle-fcitx5" ''
+    set -eu
+
+    systemctl="${lib.getExe' pkgs.systemd "systemctl"}"
+    notify="${lib.getExe' unstable.libnotify "notify-send"}"
+
+    if "$systemctl" --user is-active --quiet fcitx5-daemon.service; then
+      "$systemctl" --user stop fcitx5-daemon.service
+      "$notify" "Fcitx5" "已关闭输入法"
+    else
+      "$systemctl" --user start fcitx5-daemon.service
+      "$notify" "Fcitx5" "已启动输入法"
+    fi
+  '';
+
+  primaryOutput = "DP-2";
+  laptopOutput = "eDP-2";
 in
 {
   wayland.windowManager.sway = {
     enable = true;
     package = null;
-    systemd.variables = [ "--all" ];
+    systemd = {
+      variables = [ "--all" ];
+      xdgAutostart = true;
+    };
     checkConfig = false;
 
     config = {
@@ -41,7 +68,7 @@ in
       right = "l";
 
       terminal = ghosttyCommand;
-      menu = "${lib.getExe config.programs.walker.package}";
+      menu = "${walkerLaunch}";
 
       focus.followMouse = "no";
 
@@ -71,7 +98,7 @@ in
           scale = "1.0";
         };
 
-        "eDP-1" = {
+        "eDP-2" = {
           resolution = "2560x1600@60.002Hz";
           position = "2560 0";
           scale = "1.6";
@@ -82,12 +109,12 @@ in
       workspaceOutputAssign =
         (map (workspace: {
           workspace = toString workspace;
-          output = "DP-2";
+          output = primaryOutput;
         }) (lib.range 1 9))
         ++ [
           {
             workspace = "10";
-            output = "eDP-1";
+            output = laptopOutput;
           }
         ];
 
@@ -158,7 +185,7 @@ in
 
       keybindings = lib.mkOptionDefault {
         "${modifier}+t" = "exec ${ghosttyCommand}";
-        "${modifier}+d" = "exec ${lib.getExe config.programs.walker.package}";
+        "${modifier}+d" = "exec ${walkerLaunch}";
         "${modifier}+Tab" = "workspace next";
         "${modifier}+Shift+Tab" = "workspace prev";
         "${modifier}+m" = "splith";
@@ -180,20 +207,14 @@ in
         "Home" = "exec ${screenshotRegion}";
 
         "${modifier}+p" = "exec ${lib.getExe pkgs.nautilus}";
-        "${modifier}+b" = "exec ${lib.getExe pkgs.google-chrome}";
-        "${modifier}+Mod1+space" =
-          "exec sh -lc 'pkill -x fcitx5 && ${unstable.libnotify}/bin/notify-send \"Fcitx5\" \"已关闭输入法\" || (fcitx5 -d -r && ${unstable.libnotify}/bin/notify-send \"Fcitx5\" \"已启动输入法\")'";
+        "${modifier}+b" = "exec ${lib.getExe config.programs.google-chrome.finalPackage}";
+        "${modifier}+Mod1+space" = "exec ${toggleFcitx5}";
         "${modifier}+o" = "exec ${togglePowerProfile}";
         "${modifier}+c" = "exec ${pickColor}";
       };
     };
 
-    extraConfigEarly = ''
-      exec_always dbus-update-activation-environment --systemd QT_FONT_DPI WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
-    '';
-
     extraConfig = ''
-      exec systemctl --user start xdg-autostart-if-no-desktop-manager.target
       workspace 1
 
       for_window [app_id="^.*"] inhibit_idle fullscreen
