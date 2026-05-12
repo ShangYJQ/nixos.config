@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  unstable,
 }:
 
 let
@@ -37,7 +38,7 @@ rec {
   pickColor = pkgs.writeShellScript "pick-color" ''
     set -eu
 
-    ${lib.getExe pkgs.hyprpicker} | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+    ${lib.getExe unstable.hyprpicker} | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
   '';
 
   wallpaperScript = pkgs.writeShellScript "sway-wallpaper" ''
@@ -137,7 +138,7 @@ rec {
     EOF
 
     pkill -f "cava -p $config_file" || true
-    ${lib.getExe pkgs.cava} -p "$config_file" | sed -u "$dict"
+    ${lib.getExe unstable.cava} -p "$config_file" | sed -u "$dict"
   '';
 
   togglePowerProfile = pkgs.writeShellScript "toggle-power-profile" ''
@@ -147,7 +148,7 @@ rec {
     current="$(${pkgs.power-profiles-daemon}/bin/powerprofilesctl get 2>/dev/null || true)"
 
     if [ -z "$current" ]; then
-      ${pkgs.libnotify}/bin/notify-send -u critical "Power Profile" "powerprofilesctl get failed: check power-profiles-daemon"
+      ${unstable.libnotify}/bin/notify-send -u critical "Power Profile" "powerprofilesctl get failed: check power-profiles-daemon"
       exit 1
     fi
 
@@ -172,9 +173,9 @@ rec {
         power-saver) icon="power saver" ;;
         *) icon="$next" ;;
       esac
-      ${pkgs.libnotify}/bin/notify-send -u normal "Power Profile" "Switched to: $icon"
+      ${unstable.libnotify}/bin/notify-send -u normal "Power Profile" "Switched to: $icon"
     else
-      ${pkgs.libnotify}/bin/notify-send -u critical "Power Profile" "Switch failed: $current -> $next"
+      ${unstable.libnotify}/bin/notify-send -u critical "Power Profile" "Switch failed: $current -> $next"
       exit 1
     fi
   '';

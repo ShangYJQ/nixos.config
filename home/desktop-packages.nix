@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 
 {
   home.packages = with pkgs; [
@@ -10,20 +10,20 @@
     networkmanager # provides nmtui
 
     # Desktop utilities
-    bluetui
+    unstable.bluetui
     brightnessctl
-    cava
+    unstable.cava
     cliphist
-    gdu
+    unstable.gdu
     hypridle
-    hyprpicker
-    libnotify
+    unstable.hyprpicker
+    unstable.libnotify
     pamixer
-    pavucontrol
+    unstable.pavucontrol
     playerctl
-    s-tui
+    unstable.s-tui
     swappy
-    walker
+    unstable.walker
     wl-clipboard
     wlsunset
     xdg-utils

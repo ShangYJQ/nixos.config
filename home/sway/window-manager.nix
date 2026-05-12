@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }:
 
@@ -11,6 +12,7 @@ let
       config
       lib
       pkgs
+      unstable
       ;
   };
 
@@ -39,7 +41,7 @@ in
       right = "l";
 
       terminal = ghosttyCommand;
-      menu = "${lib.getExe pkgs.walker}";
+      menu = "${lib.getExe unstable.walker}";
 
       focus.followMouse = "no";
 
@@ -53,7 +55,7 @@ in
 
       bars = [
         {
-          command = "${lib.getExe pkgs.waybar}";
+          command = "${lib.getExe unstable.waybar}";
           statusCommand = null;
         }
       ];
@@ -152,13 +154,13 @@ in
           always = true;
         }
         { command = "fcitx5 -d -r"; }
-        { command = "${lib.getExe pkgs.walker} --gapplication-service"; }
+        { command = "${lib.getExe unstable.walker} --gapplication-service"; }
         { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
       ];
 
       keybindings = lib.mkOptionDefault {
         "${modifier}+t" = "exec ${ghosttyCommand}";
-        "${modifier}+d" = "exec ${lib.getExe pkgs.walker}";
+        "${modifier}+d" = "exec ${lib.getExe unstable.walker}";
         "${modifier}+Tab" = "workspace next";
         "${modifier}+Shift+Tab" = "workspace prev";
         "${modifier}+m" = "splith";
@@ -182,14 +184,17 @@ in
         "${modifier}+p" = "exec ${lib.getExe pkgs.nautilus}";
         "${modifier}+b" = "exec ${lib.getExe pkgs.google-chrome}";
         "${modifier}+Mod1+space" =
-          "exec sh -lc 'pkill -x fcitx5 && ${pkgs.libnotify}/bin/notify-send \"Fcitx5\" \"已关闭输入法\" || (fcitx5 -d -r && ${pkgs.libnotify}/bin/notify-send \"Fcitx5\" \"已启动输入法\")'";
+          "exec sh -lc 'pkill -x fcitx5 && ${unstable.libnotify}/bin/notify-send \"Fcitx5\" \"已关闭输入法\" || (fcitx5 -d -r && ${unstable.libnotify}/bin/notify-send \"Fcitx5\" \"已启动输入法\")'";
         "${modifier}+o" = "exec ${togglePowerProfile}";
         "${modifier}+c" = "exec ${pickColor}";
       };
     };
 
-    extraConfig = ''
+    extraConfigEarly = ''
       exec_always dbus-update-activation-environment --systemd QT_FONT_DPI WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
+    '';
+
+    extraConfig = ''
       workspace 1
 
       for_window [app_id="^.*"] inhibit_idle fullscreen

@@ -99,12 +99,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
+    unstable.git
     vim
     curl
     drm_info
     wget
-    htop
+    unstable.htop
     ncurses
     pciutils
   ];

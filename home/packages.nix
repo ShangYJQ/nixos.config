@@ -34,17 +34,17 @@ in
 
       # CLI utilities
       eza
-      fastfetch
-      fd
-      fzf
-      zoxide
+      unstable.fastfetch
+      unstable.fd
+      unstable.fzf
+      unstable.zoxide
       ripgrep
       bat
-      tree
+      unstable.tree
       zip
       unzip
-      btop
-      tokei
+      unstable.btop
+      unstable.tokei
 
       # Language servers and formatters
       unstable.lua-language-server
@@ -59,10 +59,10 @@ in
       unstable.taplo
 
       # Language runtimes and toolchains
-      rustup
-      tree-sitter
+      unstable.rustup
+      unstable.tree-sitter
       unstable.bun
-      nodejs
+      unstable.nodejs
       unstable.clang
       unstable.clang-tools
 
@@ -70,10 +70,10 @@ in
       gnumake
       cmake
       pkg-config
-      gdb
+      unstable.gdb
 
       # Sandbox helpers
-      bubblewrap
+      unstable.bubblewrap
     ];
 
     sessionPath = [
@@ -103,16 +103,22 @@ in
   programs = {
     direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      package = unstable.direnv;
+      nix-direnv = {
+        enable = true;
+        package = unstable.nix-direnv;
+      };
     };
 
     zoxide = {
       enable = true;
+      package = unstable.zoxide;
       enableFishIntegration = true;
     };
 
     fzf = {
       enable = true;
+      package = unstable.fzf;
       enableFishIntegration = true;
     };
 
@@ -123,7 +129,7 @@ in
       };
       extraPackages = with pkgs; [
         file
-        resvg
+        unstable.resvg
         jq
         unstable.imagemagick
       ];

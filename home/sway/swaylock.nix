@@ -1,8 +1,9 @@
-{ ... }:
+{ unstable, ... }:
 
 {
   programs.swaylock = {
     enable = true;
+    package = unstable.swaylock;
     settings = {
       color = "24273a";
       bs-hl-color = "f4dbd6";

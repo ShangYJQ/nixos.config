@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }:
 
@@ -11,12 +12,14 @@ let
       config
       lib
       pkgs
+      unstable
       ;
   };
 in
 {
   services.mako = {
     enable = true;
+    package = unstable.mako;
     settings = {
       anchor = "top-right";
       background-color = "#1e1e2e";

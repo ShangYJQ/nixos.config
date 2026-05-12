@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  unstable,
+  ...
+}:
 
 {
   services.hypridle = {
@@ -6,15 +11,15 @@
     systemdTarget = "sway-session.target";
     settings = {
       general = {
-        lock_cmd = "${lib.getExe pkgs.swaylock} -f";
-        before_sleep_cmd = "${lib.getExe pkgs.swaylock} -f";
+        lock_cmd = "${lib.getExe unstable.swaylock} -f";
+        before_sleep_cmd = "${lib.getExe unstable.swaylock} -f";
         ignore_dbus_inhibit = false;
       };
 
       listener = [
         {
           timeout = 600;
-          on-timeout = "${lib.getExe pkgs.swaylock} -f";
+          on-timeout = "${lib.getExe unstable.swaylock} -f";
         }
         {
           timeout = 1200;

@@ -1,8 +1,9 @@
-{ ... }:
+{ unstable, ... }:
 
 {
   programs.git = {
     enable = true;
+    package = unstable.git;
     settings = {
       user = {
         name = "ShangYJQ";

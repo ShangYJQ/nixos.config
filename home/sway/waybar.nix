@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }:
 
@@ -11,6 +12,7 @@ let
       config
       lib
       pkgs
+      unstable
       ;
   };
 
@@ -19,6 +21,7 @@ in
 {
   programs.waybar = {
     enable = true;
+    package = unstable.waybar;
     settings.mainBar = {
       layer = "top";
       position = "top";
@@ -206,7 +209,7 @@ in
         format-connected = " {device_alias}";
         format-connected-battery = " {device_alias} ({device_battery_percentage}%)";
         tooltip-format = "{controller_alias}\n{num_connections} connected";
-        on-click = "${lib.getExe pkgs.ghostty} -e bluetui";
+        on-click = "${lib.getExe pkgs.ghostty} -e ${lib.getExe unstable.bluetui}";
       };
 
       pulseaudio = {
@@ -227,7 +230,7 @@ in
             "󰕾"
           ];
         };
-        on-click = "${lib.getExe pkgs.pavucontrol}";
+        on-click = "${lib.getExe unstable.pavucontrol}";
         on-click-right = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
         on-scroll-up = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +2%";
         on-scroll-down = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -2%";
@@ -248,7 +251,7 @@ in
         interval = 30;
         format = "󰋊 {percentage_used}%";
         path = "/";
-        on-click = "${lib.getExe pkgs.ghostty} -e gdu /";
+        on-click = "${lib.getExe pkgs.ghostty} -e ${lib.getExe unstable.gdu} /";
       };
 
       tray = {

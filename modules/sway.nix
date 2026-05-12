@@ -1,12 +1,20 @@
 {
   lib,
   pkgs,
+  unstable,
   userName,
   ...
 }:
 
 {
-  hardware.graphics.enable = true;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
+    graphics.enable = true;
+  };
 
   programs = {
     light.enable = true;
@@ -29,7 +37,7 @@
         brightnessctl
         grim
         wl-clipboard
-        mako
+        unstable.mako
         slurp
         sway-contrib.grimshot
       ];
@@ -54,6 +62,7 @@
 
     pulseaudio.enable = false;
     power-profiles-daemon.enable = true;
+    upower.enable = true;
     udisks2.enable = true;
     gvfs.enable = true;
   };
@@ -64,10 +73,10 @@
     fcitx5 = {
       waylandFrontend = true;
       addons = with pkgs; [
-        qt6Packages.fcitx5-chinese-addons
-        qt6Packages.fcitx5-configtool
-        fcitx5-gtk
-        fcitx5-rime
+        unstable.qt6Packages.fcitx5-chinese-addons
+        unstable.qt6Packages.fcitx5-configtool
+        unstable.fcitx5-gtk
+        unstable.fcitx5-rime
       ];
     };
   };

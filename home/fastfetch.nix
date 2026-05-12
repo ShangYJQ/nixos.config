@@ -1,8 +1,9 @@
-{ ... }:
+{ unstable, ... }:
 
 {
   programs.fastfetch = {
     enable = true;
+    package = unstable.fastfetch;
 
     settings = {
       display.separator = " ";
