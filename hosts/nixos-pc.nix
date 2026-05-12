@@ -94,6 +94,8 @@
     };
   };
 
+  powerManagement.cpufreq.max = 4000000; # 4.0 GHz, cpupower uses kHz here.
+
   networking = {
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;

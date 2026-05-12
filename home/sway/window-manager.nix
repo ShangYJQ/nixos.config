@@ -48,7 +48,7 @@ let
   '';
 
   primaryOutput = "DP-2";
-  laptopOutput = "eDP-2";
+  laptopOutput = "eDP-1";
 in
 {
   wayland.windowManager.sway = {

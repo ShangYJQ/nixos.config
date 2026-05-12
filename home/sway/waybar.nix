@@ -90,7 +90,7 @@ in
       };
 
       "custom/arch" = {
-        format = "󰣇";
+        format = "";
         on-click = "${wallpaperScript} next";
         on-click-right = "${wallpaperScript} prev";
         on-click-middle = "${wallpaperScript} random";
