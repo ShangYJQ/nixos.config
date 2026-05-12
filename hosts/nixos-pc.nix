@@ -60,5 +60,13 @@
 
   };
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    nvidiaSettings = true;
+  };
+
   networking.useDHCP = lib.mkDefault true;
 }

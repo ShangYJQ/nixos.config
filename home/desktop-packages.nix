@@ -11,6 +11,8 @@
     google-chrome
     nautilus
 
+    mntui
+
     # Desktop utilities
     awwwPackage
     bluetui

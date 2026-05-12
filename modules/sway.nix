@@ -9,6 +9,10 @@
 
     sway = {
       enable = true;
+      extraOptions = [ "--unsupported-gpu" ];
+      extraSessionCommands = ''
+        export WLR_NO_HARDWARE_CURSORS=1
+      '';
       wrapperFeatures.gtk = true;
       extraPackages = with pkgs; [
         brightnessctl
@@ -66,8 +70,9 @@
   };
 
   environment.loginShellInit = ''
-    if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-      exec sway
+    if [ "$USER" = "${userName}" ] && [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+      mkdir -p "$HOME/.local/state"
+      exec sway > "$HOME/.local/state/sway.log" 2>&1
     fi
   '';
 

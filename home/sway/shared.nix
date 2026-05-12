@@ -14,7 +14,7 @@ rec {
   modifier = "Mod4";
   screenshots = "${cfgHome}/Pictures/Screenshots";
 
-  ghosttyCommand = "env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only ${lib.getExe pkgs.ghostty}";
+  ghosttyCommand = lib.getExe pkgs.ghostty;
 
   wallpaperScript = pkgs.writeShellScript "awww-wallpaper" ''
     set -eu
