@@ -132,8 +132,14 @@ in
         outer = 4;
       };
 
-      window.border = 2;
-      floating.border = 2;
+      window = {
+        titlebar = false;
+        border = 2;
+      };
+      floating = {
+        titlebar = false;
+        border = 2;
+      };
       floating.modifier = "${modifier} normal";
 
       colors = {
