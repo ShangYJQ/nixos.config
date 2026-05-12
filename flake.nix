@@ -14,6 +14,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    elephant = {
+      url = "github:abenz1267/elephant";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    daeuniverse.url = "github:daeuniverse/flake.nix";
+
     nvim-config = {
       url = "github:ShangYJQ/nvim.config";
       flake = false;
@@ -40,6 +53,8 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
+      walker,
+      daeuniverse,
       nvim-config,
       yazi-config,
       codex-cli-nix,
@@ -76,6 +91,7 @@
           specialArgs = {
             inherit
               unstable
+              walker
               userName
               nixosConfigName
               hostName
@@ -127,6 +143,7 @@
         hostName = "nixos";
         system = "x86_64-linux";
         modules = [
+          daeuniverse.nixosModules.daed
           ./configuration.nix
           ./hosts/nixos-pc.nix
         ];

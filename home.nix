@@ -1,5 +1,6 @@
 {
   lib,
+  walker,
   userName,
   nixosConfigName,
   ...
@@ -21,6 +22,7 @@
         ./home/fastfetch.nix
       ]
       ++ lib.optionals (nixosConfigName == "nixos-pc") [
+        walker.homeManagerModules.default
         ./home/desktop-packages.nix
         ./home/sway
       ];

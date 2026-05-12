@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, ... }:
 
 let
   omarchyStyle = ''
@@ -152,13 +152,23 @@ let
   '';
 in
 {
-  xdg.configFile = {
-    "walker/config.toml".text = ''
-      force_keyboard_focus = true
-      theme = "omarchy"
-    '';
+  programs = {
+    elephant = {
+      settings = {
+        terminal_cmd = lib.getExe pkgs.ghostty;
+      };
+    };
 
-    "walker/themes/omarchy.css".text = omarchyStyle;
-    "walker/themes/omarchy/style.css".text = omarchyStyle;
+    walker = {
+      enable = true;
+      runAsService = true;
+
+      config = {
+        force_keyboard_focus = true;
+        theme = "omarchy";
+      };
+
+      themes.omarchy.style = omarchyStyle;
+    };
   };
 }

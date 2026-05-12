@@ -23,7 +23,6 @@
     playerctl
     unstable.s-tui
     swappy
-    unstable.walker
     wl-clipboard
     wlsunset
     xdg-utils

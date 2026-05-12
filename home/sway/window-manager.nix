@@ -41,7 +41,7 @@ in
       right = "l";
 
       terminal = ghosttyCommand;
-      menu = "${lib.getExe unstable.walker}";
+      menu = "${lib.getExe config.programs.walker.package}";
 
       focus.followMouse = "no";
 
@@ -153,14 +153,12 @@ in
           command = "${wallpaperScript} random";
           always = true;
         }
-        { command = "fcitx5 -d -r"; }
-        { command = "${lib.getExe unstable.walker} --gapplication-service"; }
         { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
       ];
 
       keybindings = lib.mkOptionDefault {
         "${modifier}+t" = "exec ${ghosttyCommand}";
-        "${modifier}+d" = "exec ${lib.getExe unstable.walker}";
+        "${modifier}+d" = "exec ${lib.getExe config.programs.walker.package}";
         "${modifier}+Tab" = "workspace next";
         "${modifier}+Shift+Tab" = "workspace prev";
         "${modifier}+m" = "splith";
@@ -195,6 +193,7 @@ in
     '';
 
     extraConfig = ''
+      exec systemctl --user start xdg-autostart-if-no-desktop-manager.target
       workspace 1
 
       for_window [app_id="^.*"] inhibit_idle fullscreen

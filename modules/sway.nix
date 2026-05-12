@@ -45,6 +45,8 @@
   };
 
   services = {
+    xserver.desktopManager.runXdgAutostartIfNone = true;
+
     gnome.gnome-keyring.enable = true;
 
     getty = {
@@ -73,10 +75,10 @@
     fcitx5 = {
       waylandFrontend = true;
       addons = with pkgs; [
-        unstable.qt6Packages.fcitx5-chinese-addons
-        unstable.qt6Packages.fcitx5-configtool
-        unstable.fcitx5-gtk
-        unstable.fcitx5-rime
+        qt6Packages.fcitx5-chinese-addons
+        qt6Packages.fcitx5-configtool
+        fcitx5-gtk
+        fcitx5-rime
       ];
     };
   };

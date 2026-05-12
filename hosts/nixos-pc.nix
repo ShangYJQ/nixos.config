@@ -99,5 +99,17 @@
     networkmanager.enable = true;
   };
 
+  services.daed = {
+    enable = true;
+
+    configDir = "/etc/daed";
+    listen = "127.0.0.1:2023";
+
+    openFirewall = {
+      enable = true;
+      port = 12345;
+    };
+  };
+
   users.users.${userName}.extraGroups = [ "networkmanager" ];
 }
