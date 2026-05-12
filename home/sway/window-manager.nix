@@ -58,9 +58,36 @@ in
         }
       ];
 
-      output."*" = {
-        bg = "${../../assets/wallpapers/wallhaven-yq587d.png} fill";
+      output = {
+        "*" = {
+          bg = "${../../assets/wallpapers/wallhaven-yq587d.png} fill";
+        };
+
+        "DP-2" = {
+          resolution = "2560x1440@180.001Hz";
+          position = "0 0";
+          scale = "1.0";
+        };
+
+        "eDP-1" = {
+          resolution = "2560x1600@60.002Hz";
+          position = "2560 0";
+          scale = "1.6";
+          transform = "270";
+        };
       };
+
+      workspaceOutputAssign =
+        (map (workspace: {
+          workspace = toString workspace;
+          output = "DP-2";
+        }) (lib.range 1 9))
+        ++ [
+          {
+            workspace = "10";
+            output = "eDP-1";
+          }
+        ];
 
       input = {
         "type:touchpad".events = "disabled_on_external_mouse";

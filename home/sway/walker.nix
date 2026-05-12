@@ -29,18 +29,18 @@
       .large-icons { -gtk-icon-size: 32px; }
 
       .box-wrapper {
-        background: alpha(@surface, 0.95);
+        background-color: @surface;
         padding: 20px;
         border: 2px solid @outline;
       }
 
       .search-container {
-        background: @surface;
+        background-color: @surface;
         padding: 10px;
       }
 
       .input {
-        background: @surface;
+        background-color: @surface;
         color: @onSurface;
         caret-color: @onSurface;
       }
@@ -52,7 +52,7 @@
       }
 
       child:selected .item-box {
-        background: alpha(@primary, 0.35);
+        background-color: alpha(@primary, 0.35);
       }
 
       child:selected .item-box * {
@@ -65,7 +65,7 @@
       }
 
       child:hover .item-box {
-        background: alpha(@primary, 0.2);
+        background-color: alpha(@primary, 0.2);
       }
 
       .item-text-box {
@@ -92,7 +92,7 @@
       }
 
       .keybind-hints {
-        background: @surfaceVariant;
+        background-color: @surfaceVariant;
         padding: 10px;
         margin-top: 10px;
         color: @primary;
