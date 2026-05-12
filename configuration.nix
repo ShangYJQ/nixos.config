@@ -23,13 +23,15 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      substituters = [
-        "https://cache.nixos.org/"
+
+      extra-substituters = [
         "https://cache.garnix.io"
       ];
-      trusted-public-keys = [
+
+      extra-trusted-public-keys = [
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
+
       experimental-features = [
         "nix-command"
         "flakes"
