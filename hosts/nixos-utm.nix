@@ -1,4 +1,9 @@
-{ lib, modulesPath, ... }:
+{
+  lib,
+  unstable,
+  modulesPath,
+  ...
+}:
 
 {
 
@@ -7,6 +12,9 @@
   ];
 
   boot = {
+
+    kernelPackages = unstable.linuxPackages_latest;
+
     initrd.availableKernelModules = [
       "virtio_pci"
       "virtio_blk"
