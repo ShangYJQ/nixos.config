@@ -47,6 +47,24 @@ let
     fi
   '';
 
+  switchFcitx5InputMethod = pkgs.writeShellScript "switch-fcitx5-input-method" ''
+    set -eu
+
+    systemctl="${lib.getExe' pkgs.systemd "systemctl"}"
+    remote="${lib.getExe' pkgs.fcitx5 "fcitx5-remote"}"
+
+    "$systemctl" --user start fcitx5-daemon.service >/dev/null 2>&1 || true
+
+    for _ in 1 2 3 4 5; do
+      if "$remote" --check >/dev/null 2>&1; then
+        exec "$remote" -t
+      fi
+      sleep 0.05
+    done
+
+    exit 1
+  '';
+
   primaryOutput = "DP-2";
   laptopOutput = "eDP-1";
 in
@@ -214,6 +232,7 @@ in
 
         "${modifier}+p" = "exec ${lib.getExe pkgs.nautilus}";
         "${modifier}+b" = "exec ${lib.getExe config.programs.google-chrome.finalPackage}";
+        "${modifier}+space" = "exec ${switchFcitx5InputMethod}";
         "${modifier}+Mod1+space" = "exec ${toggleFcitx5}";
         "${modifier}+o" = "exec ${togglePowerProfile}";
         "${modifier}+c" = "exec ${pickColor}";

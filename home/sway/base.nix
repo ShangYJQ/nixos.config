@@ -1,5 +1,14 @@
 { pkgs, ... }:
 
+let
+  fcitx5CandlelightThemes = pkgs.fetchFromGitHub {
+    owner = "thep0y";
+    repo = "fcitx5-themes-candlelight";
+    rev = "653677b0454569f41c815b3d262a57e42c90ee05";
+    hash = "sha256-dN77aUt1qkN177BZOfrT6O72Qp0J2jlM2mGNxI0cBnA=";
+  };
+in
+
 {
   home = {
     packages = [
@@ -61,5 +70,20 @@
       [GroupOrder]
       0=Default
     '';
+  };
+
+  xdg.configFile."fcitx5/conf/classicui.conf" = {
+    force = true;
+    text = ''
+      Vertical Candidate List=False
+      PerScreenDPI=True
+      Font="Noto Sans CJK SC 13"
+      Theme=macOS-dark
+    '';
+  };
+
+  xdg.dataFile."fcitx5/themes/macOS-dark" = {
+    force = true;
+    source = "${fcitx5CandlelightThemes}/macOS-dark";
   };
 }
