@@ -98,7 +98,7 @@ in
           scale = "1.0";
         };
 
-        "eDP-2" = {
+        "eDP-1" = {
           resolution = "2560x1600@60.002Hz";
           position = "2560 0";
           scale = "1.6";
