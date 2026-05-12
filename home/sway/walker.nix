@@ -295,7 +295,7 @@ in
       @define-color selected-text #89b4fa;
       @define-color text #cdd6f4;
       @define-color base #1e1e2e;
-      @define-color border #cdd6f4;
+      @define-color border #585b70;
       @define-color foreground #cdd6f4;
       @define-color background #1e1e2e;
     '';

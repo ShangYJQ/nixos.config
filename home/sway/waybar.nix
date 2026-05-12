@@ -17,8 +17,53 @@ let
   };
 
   inherit (swayShared) cavaScript wallpaperScript;
+
+  nightlightTemperature = "4500";
+  nightlightService = "wlsunset-nightlight.service";
+  nightlightStatus = pkgs.writeShellScript "waybar-nightlight-status" ''
+    set -eu
+
+    systemctl="${lib.getExe' pkgs.systemd "systemctl"}"
+
+    if "$systemctl" --user is-active --quiet ${nightlightService}; then
+      printf '%s\n' '{"class":"on","alt":"on","tooltip":"护眼模式：已开启"}'
+    elif "$systemctl" --user is-failed --quiet ${nightlightService}; then
+      printf '%s\n' '{"class":"failed","alt":"failed","tooltip":"护眼模式：启动失败，查看 journalctl --user -u wlsunset-nightlight.service"}'
+    else
+      printf '%s\n' '{"class":"off","alt":"off","tooltip":"护眼模式：已关闭"}'
+    fi
+  '';
+  nightlightToggle = pkgs.writeShellScript "waybar-nightlight-toggle" ''
+    set -eu
+
+    systemctl="${lib.getExe' pkgs.systemd "systemctl"}"
+
+    if "$systemctl" --user is-active --quiet ${nightlightService}; then
+      exec "$systemctl" --user stop ${nightlightService}
+    fi
+
+    "$systemctl" --user reset-failed ${nightlightService} >/dev/null 2>&1 || true
+    exec "$systemctl" --user start ${nightlightService}
+  '';
 in
 {
+  systemd.user.services.wlsunset-nightlight = {
+    Unit = {
+      Description = "Manual Wayland night light";
+      Documentation = [ "man:wlsunset(1)" ];
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+
+    Service = {
+      Type = "exec";
+      ExecStartPre = "-${lib.getExe' pkgs.procps "pkill"} -x wlsunset";
+      ExecStart = "${lib.getExe pkgs.wlsunset} -o DP-2 -o eDP-1 -T ${nightlightTemperature} -t ${nightlightTemperature} -S 00:00 -s 00:01 -d 1";
+      Slice = "background-graphical.slice";
+    };
+  };
+
   programs.waybar = {
     enable = true;
     package = unstable.waybar;
@@ -107,12 +152,13 @@ in
         format = "{icon}";
         return-type = "json";
         interval = 1;
-        exec = "if pgrep -x wlsunset >/dev/null; then echo '{\"class\":\"on\",\"alt\":\"on\",\"tooltip\":\"护眼模式：已开启\"}'; else echo '{\"class\":\"off\",\"alt\":\"off\",\"tooltip\":\"护眼模式：已关闭\"}'; fi";
+        exec = "${nightlightStatus}";
         format-icons = {
           on = "";
           off = "";
+          failed = "";
         };
-        on-click = "if pgrep -x wlsunset >/dev/null; then pkill wlsunset; else ${lib.getExe pkgs.wlsunset} -t 4500 & fi";
+        on-click = "${nightlightToggle}";
       };
 
       idle_inhibitor = {
@@ -373,6 +419,7 @@ in
       #custom-uptime { color: @green; border-bottom-color: @green; }
       #custom-nightlight { color: @white; border-bottom-color: @white; }
       #custom-nightlight.on { color: @yellow; border-bottom-color: @yellow; }
+      #custom-nightlight.failed { color: @red; border-bottom-color: @red; }
       #idle_inhibitor { color: @foreground; border-bottom-color: transparent; }
       #idle_inhibitor.activated { color: @red; border-bottom-color: @red; }
 
