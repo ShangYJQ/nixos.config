@@ -143,7 +143,7 @@ in
 
       "custom/uptime" = {
         format = "󰔟 {}";
-        exec = "uptime -p | sed 's/up //; s/ days/d/; s/ hours/h/; s/ minutes/m/'";
+        exec = "${lib.getExe' pkgs.procps "uptime"} -p | ${lib.getExe pkgs.gnused} 's/up //; s/ days/d/; s/ hours/h/; s/ minutes/m/'";
         interval = 60;
       };
 
