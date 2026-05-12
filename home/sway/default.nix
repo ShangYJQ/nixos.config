@@ -3,7 +3,6 @@
 {
   imports = [
     ./base.nix
-    ./awww.nix
     ./cliphist.nix
     ./ghostty.nix
     ./hypridle.nix

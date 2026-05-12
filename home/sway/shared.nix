@@ -1,5 +1,4 @@
 {
-  awwwPackage,
   config,
   lib,
   pkgs,
@@ -16,18 +15,38 @@ rec {
 
   ghosttyCommand = lib.getExe pkgs.ghostty;
 
-  wallpaperScript = pkgs.writeShellScript "awww-wallpaper" ''
+  screenshotFull = pkgs.writeShellScript "screenshot-full" ''
     set -eu
 
-    dir="''${AWWW_WALLPAPER_DIR:-${cfgHome}/Pictures/Wallpapers}"
-    state_dir="''${XDG_CACHE_HOME:-${cfgHome}/.cache}/awww"
+    mkdir -p "${screenshots}"
+    ${lib.getExe pkgs.grim} - \
+      | tee "${screenshots}/$(${pkgs.coreutils}/bin/date +%Y-%m-%d_%H-%M-%S).png" \
+      | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+  '';
+
+  screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
+    set -eu
+
+    region="$(${lib.getExe pkgs.slurp})"
+    [ -n "$region" ] || exit 0
+    ${lib.getExe pkgs.grim} -g "$region" - \
+      | ${lib.getExe pkgs.swappy} -f - -o - \
+      | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+  '';
+
+  pickColor = pkgs.writeShellScript "pick-color" ''
+    set -eu
+
+    ${lib.getExe pkgs.hyprpicker} | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+  '';
+
+  wallpaperScript = pkgs.writeShellScript "sway-wallpaper" ''
+    set -eu
+
+    dir="''${SWAY_WALLPAPER_DIR:-${cfgHome}/Pictures/Wallpapers}"
+    state_dir="''${XDG_CACHE_HOME:-${cfgHome}/.cache}/sway-wallpaper"
     index_file="$state_dir/index"
     order_file="$state_dir/order"
-    resize_type="''${AWWW_RESIZE_TYPE:-crop}"
-
-    export AWWW_TRANSITION="''${AWWW_TRANSITION:-random}"
-    export AWWW_TRANSITION_DURATION="''${AWWW_TRANSITION_DURATION:-3}"
-    export AWWW_TRANSITION_FPS="''${AWWW_TRANSITION_FPS:-60}"
 
     mkdir -p "$state_dir"
 
@@ -54,6 +73,10 @@ rec {
     if [ "$count" -eq 0 ]; then
       build_order
       count="$(wc -l < "$order_file" | tr -d ' ')"
+    fi
+    if [ "$count" -eq 0 ]; then
+      echo "No wallpapers found in: $dir" >&2
+      exit 1
     fi
 
     action="''${1:-next}"
@@ -84,14 +107,7 @@ rec {
       echo 0 > "$index_file"
     fi
 
-    ${lib.getExe awwwPackage} query | awk '{print $2}' | sed 's/://g' | while read -r output; do
-      [ -n "$output" ] || continue
-      ${lib.getExe awwwPackage} img --resize "$resize_type" --outputs "$output" \
-        --transition-type "$AWWW_TRANSITION" \
-        --transition-fps "$AWWW_TRANSITION_FPS" \
-        --transition-duration "$AWWW_TRANSITION_DURATION" \
-        "$img"
-    done
+    ${lib.getExe' pkgs.sway "swaymsg"} output "*" bg "$img" fill
   '';
 
   cavaScript = pkgs.writeShellScript "waybar-cava" ''

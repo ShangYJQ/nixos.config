@@ -1,8 +1,4 @@
-{
-  awwwPackage,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -14,7 +10,6 @@
     networkmanager # provides nmtui
 
     # Desktop utilities
-    awwwPackage
     bluetui
     brightnessctl
     cava

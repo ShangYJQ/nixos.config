@@ -1,5 +1,4 @@
 {
-  awwwPackage,
   config,
   lib,
   pkgs,
@@ -9,7 +8,6 @@
 let
   swayShared = import ./shared.nix {
     inherit
-      awwwPackage
       config
       lib
       pkgs

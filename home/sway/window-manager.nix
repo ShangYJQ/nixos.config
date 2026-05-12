@@ -1,5 +1,4 @@
 {
-  awwwPackage,
   config,
   lib,
   pkgs,
@@ -9,7 +8,6 @@
 let
   swayShared = import ./shared.nix {
     inherit
-      awwwPackage
       config
       lib
       pkgs
@@ -19,7 +17,9 @@ let
   inherit (swayShared)
     ghosttyCommand
     modifier
-    screenshots
+    pickColor
+    screenshotFull
+    screenshotRegion
     togglePowerProfile
     wallpaperScript
     ;
@@ -58,31 +58,9 @@ in
         }
       ];
 
-      output = {
-        "DP-2" = {
-          resolution = "2560x1440@180.001Hz";
-          position = "0 0";
-          scale = "1.0";
-        };
-        "eDP-2" = {
-          resolution = "2560x1600@60.002Hz";
-          position = "2560 0";
-          scale = "1.6";
-          transform = "270";
-        };
+      output."*" = {
+        bg = "${../../assets/wallpapers/wallhaven-yq587d.png} fill";
       };
-
-      workspaceOutputAssign =
-        (map (workspace: {
-          workspace = toString workspace;
-          output = "DP-2";
-        }) (lib.range 1 9))
-        ++ [
-          {
-            workspace = "10";
-            output = "eDP-2";
-          }
-        ];
 
       input = {
         "type:touchpad".events = "disabled_on_external_mouse";
@@ -142,16 +120,11 @@ in
       };
 
       startup = [
-        { command = "${lib.getExe' awwwPackage "awww-daemon"}"; }
         {
           command = "${wallpaperScript} random";
           always = true;
         }
         { command = "fcitx5 -d -r"; }
-        {
-          command = "pkill waybar; ${lib.getExe pkgs.waybar}";
-          always = true;
-        }
         { command = "${lib.getExe pkgs.walker} --gapplication-service"; }
       ];
 
@@ -175,23 +148,21 @@ in
         "--locked XF86MonBrightnessDown" = "exec ${lib.getExe pkgs.brightnessctl} set 5%-";
         "--locked XF86MonBrightnessUp" = "exec ${lib.getExe pkgs.brightnessctl} set 5%+";
 
-        "${modifier}+Home" =
-          "exec mkdir -p ${screenshots} && ${lib.getExe pkgs.grim} - | tee ${screenshots}/$(date +'%Y-%m-%d_%H-%M-%S').png | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
-        "Home" =
-          "exec ${lib.getExe pkgs.grim} -g \"$(${lib.getExe pkgs.slurp})\" - | ${lib.getExe pkgs.swappy} -f - -o - | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
+        "${modifier}+Home" = "exec ${screenshotFull}";
+        "Home" = "exec ${screenshotRegion}";
 
         "${modifier}+p" = "exec ${lib.getExe pkgs.nautilus}";
         "${modifier}+b" = "exec ${lib.getExe pkgs.google-chrome}";
         "${modifier}+Mod1+space" =
           "exec sh -lc 'pkill -x fcitx5 && ${pkgs.libnotify}/bin/notify-send \"Fcitx5\" \"已关闭输入法\" || (fcitx5 -d -r && ${pkgs.libnotify}/bin/notify-send \"Fcitx5\" \"已启动输入法\")'";
         "${modifier}+o" = "exec ${togglePowerProfile}";
-        "${modifier}+c" = "exec ${lib.getExe pkgs.hyprpicker} | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
+        "${modifier}+c" = "exec ${pickColor}";
       };
     };
 
     extraConfig = ''
       exec_always dbus-update-activation-environment --systemd QT_FONT_DPI WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
-      exec_always --no-startup-id swaymsg workspace 1
+      workspace 1
 
       for_window [app_id="^.*"] inhibit_idle fullscreen
       seat seat0 xcursor_theme Bibata-Modern-Classic 20

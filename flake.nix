@@ -29,11 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    awww = {
-      url = "git+https://codeberg.org/LGFae/awww";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     aicommits-src = {
       url = "github:Nutlope/aicommits";
       flake = false;
@@ -49,7 +44,6 @@
       yazi-config,
       codex-cli-nix,
       codex-switch,
-      awww,
       aicommits-src,
       ...
     }:
@@ -75,7 +69,6 @@
 
           codexSwitch = codex-switch.packages.${system}.default;
           codexCliNix = codex-cli-nix.packages.${system}.default;
-          awwwPackage = awww.packages.${system}.awww;
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
@@ -87,7 +80,6 @@
               nixosConfigName
               hostName
               flakePath
-              awwwPackage
               ;
           };
 
@@ -101,7 +93,6 @@
                   yazi-config
                   codexCliNix
                   codexSwitch
-                  awwwPackage
                   aicommits-src
                   userName
                   nixosConfigName
