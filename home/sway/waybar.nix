@@ -18,8 +18,7 @@ let
 
   inherit (swayShared) cavaScript wallpaperScript;
 
-  nightlightTemperature = "4500";
-  nightlightService = "wlsunset-nightlight.service";
+  nightlightService = "gammastep.service";
   nightlightStatus = pkgs.writeShellScript "waybar-nightlight-status" ''
     set -eu
 
@@ -28,7 +27,7 @@ let
     if "$systemctl" --user is-active --quiet ${nightlightService}; then
       printf '%s\n' '{"class":"on","alt":"on","tooltip":"护眼模式：已开启"}'
     elif "$systemctl" --user is-failed --quiet ${nightlightService}; then
-      printf '%s\n' '{"class":"failed","alt":"failed","tooltip":"护眼模式：启动失败，查看 journalctl --user -u wlsunset-nightlight.service"}'
+      printf '%s\n' '{"class":"failed","alt":"failed","tooltip":"护眼模式：启动失败，查看 journalctl --user -u gammastep.service"}'
     else
       printf '%s\n' '{"class":"off","alt":"off","tooltip":"护眼模式：已关闭"}'
     fi
@@ -47,20 +46,20 @@ let
   '';
 in
 {
-  systemd.user.services.wlsunset-nightlight = {
-    Unit = {
-      Description = "Manual Wayland night light";
-      Documentation = [ "man:wlsunset(1)" ];
-      After = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-      ConditionEnvironment = "WAYLAND_DISPLAY";
+  services.gammastep = {
+    enable = true;
+    dawnTime = "6:00-7:45";
+    duskTime = "18:35-20:15";
+    temperature = {
+      day = 5500;
+      night = 3700;
     };
-
-    Service = {
-      Type = "exec";
-      ExecStartPre = "-${lib.getExe' pkgs.procps "pkill"} -x wlsunset";
-      ExecStart = "${lib.getExe pkgs.wlsunset} -o DP-2 -o eDP-1 -T ${nightlightTemperature} -t ${nightlightTemperature} -S 00:00 -s 00:01 -d 1";
-      Slice = "background-graphical.slice";
+    tray = false;
+    enableVerboseLogging = true;
+    settings = {
+      general = {
+        adjustment-method = "wayland";
+      };
     };
   };
 

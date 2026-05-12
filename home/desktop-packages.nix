@@ -23,7 +23,6 @@
     unstable.s-tui
     swappy
     wl-clipboard
-    wlsunset
     xdg-utils
   ];
 
