@@ -121,11 +121,23 @@
           ./hosts/nixos-utm.nix
         ];
       };
+
+      nixosPc = mkHost {
+        nixosConfigName = "nixos-pc";
+        hostName = "nixos";
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          ./hosts/nixos-pc.nix
+        ];
+      };
+
     in
     {
       nixosConfigurations = {
         nixos-lxc = nixosLxc;
         nixos-utm = nixosUtm;
+        nixos-pc = nixosPc;
       };
     };
 }
