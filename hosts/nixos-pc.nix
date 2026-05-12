@@ -7,7 +7,7 @@
 {
 
   imports = [
-    ./hardware/pc-hardware.nix
+    ../hardware-configuration.nix
     ../modules/sway.nix
   ];
 
