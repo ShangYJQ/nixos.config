@@ -112,6 +112,7 @@ in
 
   xdg.portal = {
     enable = true;
+    wlr.enable = lib.mkForce false;
     extraPortals = [
       unstable.xdg-desktop-portal-wlr
     ];
