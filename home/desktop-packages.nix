@@ -11,7 +11,7 @@
     google-chrome
     nautilus
 
-    mntui
+    networkmanager # provides nmtui
 
     # Desktop utilities
     awwwPackage
