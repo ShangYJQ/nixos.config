@@ -1,4 +1,9 @@
-{ pkgs, userName, ... }:
+{
+  lib,
+  pkgs,
+  userName,
+  ...
+}:
 
 {
   hardware.graphics.enable = true;
@@ -68,6 +73,20 @@
   };
 
   security = {
+    polkit = {
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if (
+            action.id == "org.freedesktop.UPower.PowerProfiles.switch-profile" &&
+            subject.user == "${userName}"
+          ) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
+    };
+
     rtkit.enable = true;
     pam.services = {
       login.enableGnomeKeyring = true;
@@ -82,7 +101,20 @@
     fi
   '';
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    config = {
+      common.default = [
+        "wlr"
+        "gtk"
+      ];
+      sway.default = lib.mkForce [
+        "wlr"
+        "gtk"
+      ];
+    };
+  };
 
   users.users.${userName}.extraGroups = [ "video" ];
 

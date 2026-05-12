@@ -126,6 +126,7 @@ in
         }
         { command = "fcitx5 -d -r"; }
         { command = "${lib.getExe pkgs.walker} --gapplication-service"; }
+        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
       ];
 
       keybindings = lib.mkOptionDefault {
