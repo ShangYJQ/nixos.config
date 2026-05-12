@@ -7,7 +7,7 @@
 {
 
   imports = [
-    ../hardware-configuration.nix
+    ./hardware/pc-hardware.nix
   ];
 
   boot = {
