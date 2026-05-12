@@ -1,6 +1,7 @@
 {
   lib,
   unstable,
+  userName,
   ...
 }:
 
@@ -68,5 +69,10 @@
     nvidiaSettings = true;
   };
 
-  networking.useDHCP = lib.mkDefault true;
+  networking = {
+    useDHCP = lib.mkDefault true;
+    networkmanager.enable = true;
+  };
+
+  users.users.${userName}.extraGroups = [ "networkmanager" ];
 }
