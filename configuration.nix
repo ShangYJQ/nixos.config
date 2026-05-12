@@ -99,8 +99,10 @@
     git
     vim
     curl
+    drm_info
     wget
     htop
     ncurses
+    pciutils
   ];
 }

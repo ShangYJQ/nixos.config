@@ -14,6 +14,12 @@
 
   boot = {
     kernelPackages = unstable.linuxPackages_latest;
+    kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
 
     loader = {
       systemd-boot.enable = false;
