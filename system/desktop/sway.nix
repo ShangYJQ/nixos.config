@@ -51,14 +51,7 @@ in
         fi
       '';
       wrapperFeatures.gtk = true;
-      extraPackages = with pkgs; [
-        brightnessctl
-        grim
-        wl-clipboard
-        unstable.mako
-        slurp
-        sway-contrib.grimshot
-      ];
+      extraPackages = [ ];
     };
   };
 
