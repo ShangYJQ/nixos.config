@@ -20,6 +20,12 @@
       "nvidia_uvm"
       "nvidia_drm"
     ];
+    initrd.kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
 
     loader = {
       systemd-boot.enable = false;
@@ -67,12 +73,25 @@
 
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "nvidia"
+  ];
 
   hardware.nvidia = {
-    open = false;
+    open = true;
     modesetting.enable = true;
     nvidiaSettings = true;
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
+      amdgpuBusId = "PCI:6@0:0:0";
+      nvidiaBusId = "PCI:1@0:0:0";
+    };
   };
 
   networking = {
