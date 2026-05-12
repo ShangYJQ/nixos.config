@@ -1,4 +1,9 @@
-{ userName, ... }:
+{
+  lib,
+  userName,
+  nixosConfigName,
+  ...
+}:
 
 {
   home-manager.useGlobalPkgs = true;
@@ -14,6 +19,10 @@
         ./home/zellij.nix
         ./home/fish.nix
         ./home/fastfetch.nix
+      ]
+      ++ lib.optionals (nixosConfigName == "nixos-pc") [
+        ./home/desktop-packages.nix
+        ./home/sway
       ];
 
       home.stateVersion = "25.11";
