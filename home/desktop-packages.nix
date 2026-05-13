@@ -24,6 +24,9 @@
     unstable.swappy
     unstable.wl-clipboard
     xdg-utils
+
+    # Desktop apps
+    unstable.qq
   ];
 
   programs.google-chrome = {
