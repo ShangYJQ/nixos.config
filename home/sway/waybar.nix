@@ -66,6 +66,10 @@ in
   programs.waybar = {
     enable = true;
     package = unstable.waybar;
+    systemd = {
+      enable = true;
+      target = "sway-session.target";
+    };
     settings.mainBar = {
       layer = "top";
       position = "top";

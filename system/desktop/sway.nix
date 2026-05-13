@@ -122,20 +122,7 @@ in
 
   xdg.portal = {
     enable = true;
-    wlr.enable = lib.mkForce false;
-    extraPortals = [
-      unstable.xdg-desktop-portal-wlr
-    ];
-    config = {
-      common.default = [
-        "wlr"
-        "gtk"
-      ];
-      sway.default = lib.mkForce [
-        "wlr"
-        "gtk"
-      ];
-    };
+    wlr.enable = true;
   };
 
   users.users.${userName}.extraGroups = [ "video" ];

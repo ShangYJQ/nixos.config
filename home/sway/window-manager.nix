@@ -74,7 +74,7 @@ in
     package = null;
     systemd = {
       variables = [ "--all" ];
-      xdgAutostart = true;
+      xdgAutostart = false;
     };
     checkConfig = false;
 
@@ -98,12 +98,7 @@ in
         size = 10.0;
       };
 
-      bars = [
-        {
-          command = "${lib.getExe unstable.waybar}";
-          statusCommand = null;
-        }
-      ];
+      bars = [ ];
 
       output = {
         "*" = {

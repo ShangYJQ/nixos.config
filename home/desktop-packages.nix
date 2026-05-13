@@ -5,6 +5,7 @@
     # Desktop applications
     ghostty
     nautilus
+    adwaita-icon-theme
 
     networkmanager # provides nmtui
 
@@ -14,7 +15,6 @@
     unstable.cava
     unstable.cliphist
     unstable.gdu
-    unstable.hypridle
     unstable.hyprpicker
     unstable.libnotify
     pamixer
