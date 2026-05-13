@@ -111,17 +111,7 @@ rec {
     ${lib.getExe' unstable.sway "swaymsg"} output "*" bg "$img" fill
   '';
 
-  cavaScript = pkgs.writeShellScript "waybar-cava" ''
-    bar="▁▂▃▄▅▆▇█"
-    dict="s/;//g"
-    bar_length=''${#bar}
-
-    for ((i = 0; i < bar_length; i++)); do
-      dict+=";s/$i/''${bar:$i:1}/g"
-    done
-
-    config_file="/tmp/bar_cava_config"
-    cat > "$config_file" <<EOF
+  cavaConfig = pkgs.writeText "waybar-cava.ini" ''
     [general]
     framerate = 30
     bars = 14
@@ -135,10 +125,18 @@ rec {
     raw_target = /dev/stdout
     data_format = ascii
     ascii_max_range = 7
-    EOF
+  '';
 
-    pkill -f "cava -p $config_file" || true
-    ${lib.getExe unstable.cava} -p "$config_file" | sed -u "$dict"
+  cavaScript = pkgs.writeShellScript "waybar-cava" ''
+    bar="▁▂▃▄▅▆▇█"
+    dict="s/;//g"
+    bar_length=''${#bar}
+
+    for ((i = 0; i < bar_length; i++)); do
+      dict+=";s/$i/''${bar:$i:1}/g"
+    done
+
+    ${lib.getExe unstable.cava} -p ${cavaConfig} | ${lib.getExe pkgs.gnused} -u "$dict"
   '';
 
   togglePowerProfile = pkgs.writeShellScript "toggle-power-profile" ''

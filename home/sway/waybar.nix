@@ -18,7 +18,17 @@ let
 
   inherit (swayShared) cavaScript wallpaperScript;
 
-  nightlightService = "gammastep.service";
+  nightlightService = "wlsunset.service";
+  nightlightForceWarm = pkgs.writeShellScript "wlsunset-force-warm" ''
+    set -eu
+
+    systemctl="${lib.getExe' pkgs.systemd "systemctl"}"
+
+    ${lib.getExe' pkgs.coreutils "sleep"} 0.2
+    "$systemctl" --user kill --kill-who=main --signal=SIGUSR1 ${nightlightService} 2>/dev/null || true
+    ${lib.getExe' pkgs.coreutils "sleep"} 0.05
+    "$systemctl" --user kill --kill-who=main --signal=SIGUSR1 ${nightlightService} 2>/dev/null || true
+  '';
   nightlightStatus = pkgs.writeShellScript "waybar-nightlight-status" ''
     set -eu
 
@@ -27,7 +37,7 @@ let
     if "$systemctl" --user is-active --quiet ${nightlightService}; then
       printf '%s\n' '{"class":"on","alt":"on","tooltip":"护眼模式：已开启"}'
     elif "$systemctl" --user is-failed --quiet ${nightlightService}; then
-      printf '%s\n' '{"class":"failed","alt":"failed","tooltip":"护眼模式：启动失败，查看 journalctl --user -u gammastep.service"}'
+      printf '%s\n' '{"class":"failed","alt":"failed","tooltip":"护眼模式：启动失败，查看 journalctl --user -u wlsunset.service"}'
     else
       printf '%s\n' '{"class":"off","alt":"off","tooltip":"护眼模式：已关闭"}'
     fi
@@ -46,20 +56,17 @@ let
   '';
 in
 {
-  services.gammastep = {
-    enable = true;
-    dawnTime = "6:00-7:45";
-    duskTime = "18:35-20:15";
-    temperature = {
-      day = 5500;
-      night = 3700;
+  systemd.user.services.wlsunset = {
+    Unit = {
+      Description = "Manual warm color temperature for Wayland.";
+      After = [ "sway-session.target" ];
+      PartOf = [ "sway-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
     };
-    tray = false;
-    enableVerboseLogging = true;
-    settings = {
-      general = {
-        adjustment-method = "wayland";
-      };
+
+    Service = {
+      ExecStart = "${lib.getExe unstable.wlsunset} -S 00:00 -s 23:59 -T 6500 -t 3700";
+      ExecStartPost = "${nightlightForceWarm}";
     };
   };
 

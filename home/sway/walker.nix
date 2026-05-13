@@ -327,8 +327,8 @@ in
   };
 
   systemd.user.services.elephant.Service.Environment = [
-    # Elephant launches desktop entries through "sh", but the user service
-    # does not inherit the interactive shell PATH.
-    "PATH=${lib.makeBinPath [ pkgs.bash ]}"
+    # Elephant launches desktop entries through "sh"; Chrome PWA desktop files
+    # use commands from the Home Manager profile rather than absolute paths.
+    "PATH=${lib.makeBinPath [ pkgs.bash ]}:${config.home.profileDirectory}/bin:/run/current-system/sw/bin"
   ];
 }
