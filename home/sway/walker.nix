@@ -325,4 +325,10 @@ in
       };
     };
   };
+
+  systemd.user.services.elephant.Service.Environment = [
+    # Elephant launches desktop entries through "sh", but the user service
+    # does not inherit the interactive shell PATH.
+    "PATH=${lib.makeBinPath [ pkgs.bash ]}"
+  ];
 }
