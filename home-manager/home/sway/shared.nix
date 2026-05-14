@@ -11,7 +11,7 @@ in rec {
   modifier = "Mod4";
   screenshots = "${cfgHome}/Pictures/Screenshots";
 
-  ghosttyCommand = lib.getExe pkgs.ghostty;
+  ghosttyCommand = lib.getExe config.programs.ghostty.package;
 
   screenshotFull = pkgs.writeShellScript "screenshot-full" ''
     set -eu

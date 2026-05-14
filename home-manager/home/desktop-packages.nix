@@ -2,10 +2,10 @@
   pkgs,
   unstable,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # Desktop applications
-    ghostty
     nautilus
     adwaita-icon-theme
 
@@ -25,6 +25,7 @@
     unstable.s-tui
     unstable.swappy
     unstable.wl-clipboard
+    unstable.nvtopPackages.nvidia
     xdg-utils
 
     # Desktop apps

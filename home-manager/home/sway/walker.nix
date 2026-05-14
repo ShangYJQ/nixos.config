@@ -2,8 +2,20 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }: let
+  swayShared = import ./shared.nix {
+    inherit
+      config
+      lib
+      pkgs
+      unstable
+      ;
+  };
+
+  inherit (swayShared) ghosttyCommand;
+
   omarchyWalkerStyle = ''
     @import "file://${config.xdg.configHome}/omarchy/current/theme/walker.css";
     @import "file://${config.xdg.stateHome}/omarchy/toggles/walker.css";
@@ -303,7 +315,7 @@ in {
   programs = {
     elephant = {
       settings = {
-        terminal_cmd = lib.getExe pkgs.ghostty;
+        terminal_cmd = ghosttyCommand;
       };
     };
 

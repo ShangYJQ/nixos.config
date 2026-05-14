@@ -24,7 +24,10 @@ in {
       powerOnBoot = true;
     };
 
-    graphics.enable = true;
+    graphics = {
+      enable = true;
+      extraPackages = [pkgs.egl-wayland];
+    };
   };
 
   programs = {

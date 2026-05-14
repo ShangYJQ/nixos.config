@@ -14,7 +14,7 @@
       ;
   };
 
-  inherit (swayShared) cavaScript wallpaperScript;
+  inherit (swayShared) cavaScript ghosttyCommand wallpaperScript;
 
   nightlightService = "wlsunset.service";
   nightlightForceWarm = pkgs.writeShellScript "wlsunset-force-warm" ''
@@ -201,14 +201,14 @@ in {
         format = "󰘚 {usage}%";
         tooltip = true;
         interval = 1;
-        on-click = "${lib.getExe pkgs.ghostty} -e btop";
+        on-click = "${ghosttyCommand} -e btop";
       };
 
       memory = {
         format = "󰍛 {}%";
         interval = 1;
         tooltip-format = "Memory: {used} / {total} ({percentage}%)";
-        on-click = "${lib.getExe pkgs.ghostty} -e htop";
+        on-click = "${ghosttyCommand} -e htop";
       };
 
       temperature = {
@@ -219,7 +219,7 @@ in {
           "󰔏"
           "󱃂"
         ];
-        on-click = "${lib.getExe pkgs.ghostty} -e s-tui";
+        on-click = "${ghosttyCommand} -e s-tui";
       };
 
       battery = {
@@ -262,7 +262,7 @@ in {
         format-connected = " {device_alias}";
         format-connected-battery = " {device_alias} ({device_battery_percentage}%)";
         tooltip-format = "{controller_alias}\n{num_connections} connected";
-        on-click = "${lib.getExe pkgs.ghostty} -e ${lib.getExe unstable.bluetui}";
+        on-click = "${ghosttyCommand} -e ${lib.getExe unstable.bluetui}";
       };
 
       pulseaudio = {
@@ -304,7 +304,7 @@ in {
         interval = 30;
         format = "󰋊 {percentage_used}%";
         path = "/";
-        on-click = "${lib.getExe pkgs.ghostty} -e ${lib.getExe unstable.gdu} /";
+        on-click = "${ghosttyCommand} -e ${lib.getExe unstable.gdu} /";
       };
 
       tray = {
