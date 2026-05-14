@@ -277,11 +277,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778599525,
-        "narHash": "sha256-34d5MFzfk5eYVZXHhoV5QhBfhst6ejPVEiq4Hh0wnB4=",
+        "lastModified": 1778733097,
+        "narHash": "sha256-8fFAYuafA7CkWrzu6ztiaf/iyw6f8KLsyKwR0wrBmB0=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "c787880ade3124b336cac3b4e9fab7c8f8668524",
+        "rev": "0a9e4b878c774c96d223a7b979c90cec1db2fcdb",
         "type": "github"
       },
       "original": {
@@ -425,11 +425,11 @@
     "yazi-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1778036826,
-        "narHash": "sha256-INpo+yTFsF6yprAp4ALDwqw8sFrPwaW+MJ3RPcomoJs=",
+        "lastModified": 1778737306,
+        "narHash": "sha256-qmb94tqagOo7RygXYkPBxILOyz0tt2fZyXsgCiKfpZ0=",
         "owner": "ShangYJQ",
         "repo": "yazi.config",
-        "rev": "e38f10569080d5cc9e52b65ec737071a3215d61a",
+        "rev": "aafa2b7230d8eac4c693a1bfd798fd6c46edf5e5",
         "type": "github"
       },
       "original": {
