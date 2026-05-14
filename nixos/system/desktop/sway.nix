@@ -45,18 +45,6 @@ in {
         export MOZ_ENABLE_WAYLAND=1
         export NIXOS_OZONE_WL=1
         export ELECTRON_OZONE_PLATFORM_HINT=auto
-
-        # Prefer the AMD iGPU for wlroots, while still exposing the NVIDIA dGPU outputs.
-        sway_drm_devices=""
-        for sway_drm_device in /dev/dri/by-path/pci-0000:06:00.0-card /dev/dri/by-path/pci-0000:01:00.0-card; do
-          if [ -e "$sway_drm_device" ]; then
-            sway_drm_device="$(${pkgs.coreutils}/bin/realpath "$sway_drm_device")"
-            sway_drm_devices="$sway_drm_devices''${sway_drm_devices:+:}$sway_drm_device"
-          fi
-        done
-        if [ -n "$sway_drm_devices" ]; then
-          export WLR_DRM_DEVICES="$sway_drm_devices"
-        fi
       '';
       wrapperFeatures.gtk = true;
       extraPackages = [];

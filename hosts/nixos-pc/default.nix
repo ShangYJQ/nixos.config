@@ -70,7 +70,6 @@
   };
 
   services.xserver.videoDrivers = [
-    "amdgpu"
     "nvidia"
   ];
 
@@ -78,16 +77,6 @@
     open = true;
     modesetting.enable = true;
     nvidiaSettings = true;
-
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-
-      amdgpuBusId = "PCI:6@0:0:0";
-      nvidiaBusId = "PCI:1@0:0:0";
-    };
   };
 
   powerManagement.cpufreq.max = 4000000; # 4.0 GHz, cpupower uses kHz here.
