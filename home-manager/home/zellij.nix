@@ -1,4 +1,5 @@
-{unstable, ...}: {
+{ unstable, ... }:
+{
   programs.zellij = {
     enable = true;
     package = unstable.zellij;

@@ -7,11 +7,13 @@
   codexSwitch,
   aicommits-src,
   ...
-}: let
+}:
+let
   aicommits = unstable.callPackage ../../pkgs/aicommits.nix {
     inherit aicommits-src;
   };
-in {
+in
+{
   home = {
     packages = with pkgs; [
       # Nix tooling

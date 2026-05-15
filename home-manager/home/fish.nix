@@ -1,8 +1,15 @@
 {
+  lib,
   unstable,
-  nixosConfigName,
+  nixosConfigName ? null,
   ...
-}: {
+}:
+let
+  nixosAbbrs = lib.optionalAttrs (nixosConfigName != null) {
+    rb = "nh os switch .#${nixosConfigName}";
+  };
+in
+{
   programs.fish = {
     enable = true;
     package = unstable.fish;
@@ -16,9 +23,9 @@
       gr = "git restore .";
       gs = "git status --short";
       cs = "codex-switch";
-      rb = "nh os switch .#${nixosConfigName}";
       dsinit = ''nix flake new -t "github:numtide/devshell"'';
-    };
+    }
+    // nixosAbbrs;
 
     shellAliases = {
       l = "command eza --icons -l --group-directories-first";

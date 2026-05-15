@@ -1,4 +1,5 @@
-{unstable, ...}: {
+{ unstable, ... }:
+{
   programs.git = {
     enable = true;
     package = unstable.git;

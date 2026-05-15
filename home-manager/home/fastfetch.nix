@@ -1,4 +1,5 @@
-{unstable, ...}: {
+{ unstable, ... }:
+{
   programs.fastfetch = {
     enable = true;
     package = unstable.fastfetch;

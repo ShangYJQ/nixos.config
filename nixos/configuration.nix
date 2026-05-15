@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   unstable,
   userName,
@@ -11,15 +10,7 @@
     ../home-manager
   ];
 
-  nixpkgs = {
-    overlays = [
-      inputs.self.overlays.additions
-      inputs.self.overlays.modifications
-      inputs.self.overlays.unstable-packages
-    ];
-
-    config.allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "25.11";
 
