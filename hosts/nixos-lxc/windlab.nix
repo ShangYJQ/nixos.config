@@ -74,8 +74,8 @@ in
     timerConfig = {
       Unit = "windlab-android-oss-push.service";
 
-      # 每天 12:00 到 23:00，每30min运行一次。
-      OnCalendar = "*-*-* 12..23:00,30:00";
+      # 每天 12:00 到 22:00，每 2h 运行一次。
+      OnCalendar = "*-*-* 12..22/2:00:00";
 
       # 机器关机错过任务后，不在开机时补跑。
       Persistent = false;
