@@ -13,6 +13,7 @@ in
     after = [ "network-online.target" ];
 
     path = [
+      pkgs.bash
       pkgs.bun
       pkgs.git
       pkgs.nix
@@ -30,7 +31,24 @@ in
     script = ''
       set -euo pipefail
 
-      git pull
+      if ! git diff --quiet || ! git diff --cached --quiet; then
+        echo "Working tree is dirty, abort."
+        git status --short
+        exit 1
+      fi
+
+      before="$(git rev-parse HEAD)"
+
+      git pull --ff-only
+
+      after="$(git rev-parse HEAD)"
+
+      if [ "$before" = "$after" ]; then
+        echo "No new commits, skip."
+        exit 0
+      fi
+
+      echo "New commits detected: $before -> $after"
 
       nix develop "${frontendFlake}" -c bash -c '
         set -euo pipefail
@@ -38,9 +56,16 @@ in
         bun install --frozen-lockfile
         bun run sync
         bun run codegen
+        bun run build:app-version-bump
+
         bun run build:android-oss-push
+
+        git add src-tauri/tauri.conf.json
+        git commit -m "chore(android): bump app version"
+        git push
       '
     '';
+
   };
 
   systemd.timers.windlab-android-oss-push = {
@@ -49,8 +74,8 @@ in
     timerConfig = {
       Unit = "windlab-android-oss-push.service";
 
-      # 每天 12:00 到 23:00，每小时运行一次。
-      OnCalendar = "*-*-* 12..23:00:00 Asia/Shanghai";
+      # 每天 12:00 到 23:00，每30min运行一次。
+      OnCalendar = "*-*-* 12..23:00,30:00";
 
       # 机器关机错过任务后，不在开机时补跑。
       Persistent = false;
