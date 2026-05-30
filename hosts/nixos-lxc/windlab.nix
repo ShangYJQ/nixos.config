@@ -56,13 +56,7 @@ in
         bun install --frozen-lockfile
         bun run sync
         bun run codegen
-        bun run build:app-version-bump
-
         bun run build:android-oss-push
-
-        git add src-tauri/tauri.conf.json
-        git commit -m "chore(android): bump app version"
-        git push
       '
     '';
 
@@ -74,8 +68,8 @@ in
     timerConfig = {
       Unit = "windlab-android-oss-push.service";
 
-      # 每天 12:00 到 22:00，每 2h 运行一次。
-      OnCalendar = "*-*-* 12..22/2:00:00";
+      # 每天 10:00 到 22:00，每 2h 运行一次。
+      OnCalendar = "*-*-* 10..22/2:00:00";
 
       # 机器关机错过任务后，不在开机时补跑。
       Persistent = false;
